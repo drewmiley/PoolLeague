@@ -9,8 +9,8 @@ define('$', ['jquery'], function ($) {
     return $.noConflict( true );
 });
 
-require(['$', 'ko', 'appViewModel'], function($, ko, appViewModel) {
+require(['$', 'ko', 'viewModel'], function($, ko, viewModel) {
     $(document).ready(function() {
-        ko.applyBindings(new appViewModel());
+        ko.applyBindings(new viewModel('hello', 'hello'));
     })
 });
