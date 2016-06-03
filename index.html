@@ -60,6 +60,36 @@
         <div class="gameWeek">
             <h1 data-bind="text: gameWeek"></h1>
         </div>
+        <div class="leagueTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>P</th>
+                        <th>W</th>
+                        <th>D</th>
+                        <th>L</th>
+                        <th>F</th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>Pts</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: leagueTableRows">
+                    <tr>
+                        <td data-bind="text: name"></td>
+                        <td data-bind="text: played"></td>
+                        <td data-bind="text: won"></td>
+                        <td data-bind="text: drew"></td>
+                        <td data-bind="text: lost"></td>
+                        <td data-bind="text: pointsFor"></td>
+                        <td data-bind="text: pointsAgainst"></td>
+                        <td data-bind="text: bonus"></td>
+                        <td data-bind="text: points"></td>
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
 
         <div class='liveExample'>   
             <p>First name: <input data-bind='value: firstName' /></p> 

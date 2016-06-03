@@ -15,6 +15,25 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 	// see this for table sorting
 	// http://jsfiddle.net/kohenkatz/RT7J4/
 
+	function LeagueTableRow(name, played, won, drew, lost, pointsFor, pointsAgainst, bonus, points) {
+		var self = this;
+		self.name = name;
+		self.played = played;
+		self.won = won;
+		self.drew = drew;
+		self.lost = lost;
+		self.pointsFor = pointsFor;
+		self.pointsAgainst = pointsAgainst;
+		self.bonus = bonus;
+		self.points = points;
+	}
+
+	function formLeagueTable(players, matches, fixtures) {
+		return [new LeagueTableRow('Drew', 1, 1, 1, 1, 1, 1, 1, 1),
+			new LeagueTableRow('Drew', 1, 1, 1, 1, 1, 1, 1, 1),
+			new LeagueTableRow('Drew', 1, 1, 1, 1, 1, 1, 1, 1)];
+	}
+
 	// Overall viewmodel for this screen, along with initial state
 	var ReservationsViewModel = function(first, last) {
 		console.log(players);
@@ -27,6 +46,9 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 	    self.matches = ko.observable(matches);
 	    self.fixtures = ko.observable(fixtures);
 	    self.gameWeek = ko.observable(gameWeek);
+
+	    var leagueTableRows = formLeagueTable(self.players, self.matches, self.fixtures);
+	    self.leagueTableRows = ko.observable(leagueTableRows);
 
 	    this.firstName = ko.observable(first);
         this.lastName = ko.observable(last);
