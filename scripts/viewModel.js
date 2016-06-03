@@ -1,4 +1,4 @@
-define(['ko'], function(ko) {
+define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, players, matches, fixtures, gameWeek) {
 
 	    // Class to represent a row in the seat reservations grid
 	function SeatReservation(name, initialMeal) {
@@ -14,6 +14,11 @@ define(['ko'], function(ko) {
 
 	// Overall viewmodel for this screen, along with initial state
 	var ReservationsViewModel = function(first, last) {
+		console.log(players);
+		console.log(matches);
+		console.log(fixtures);
+		console.log(gameWeek);
+
 	    var self = this;
 
 	    this.firstName = ko.observable(first);
