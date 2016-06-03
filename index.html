@@ -61,10 +61,10 @@
             <h1 data-bind="text: gameWeek"></h1>
         </div>
         <div class="leagueTable">
-            Sort:
-            <select data-bind="options: sorter.sortOptions, optionsText: 'Name', value: sorter.currentSortOption"></select>
+            Sort By:
+            <select data-bind="options: leagueTableSorter.options, optionsText: 'name', value: leagueTableSorter.currentOption"></select>
             Direction:
-            <select data-bind="options: sorter.sortDirections, optionsText: 'Name', value: sorter.currentSortDirection"></select>
+            <select data-bind="options: leagueTableSorter.directions, optionsText: 'name', value: leagueTableSorter.currentDirection"></select>
             <table>
                 <thead>
                     <tr>
@@ -79,49 +79,20 @@
                         <th>Pts</th>
                     </tr>
                 </thead>
-                <tbody data-bind="foreach: leagueTableRows">
+                <tbody data-bind="foreach: leagueTableSorter.orderedRows">
                     <tr>
                         <td data-bind="text: name"></td>
                         <td data-bind="text: played"></td>
                         <td data-bind="text: won"></td>
                         <td data-bind="text: drew"></td>
                         <td data-bind="text: lost"></td>
-                        <td data-bind="text: pointsFor"></td>
-                        <td data-bind="text: pointsAgainst"></td>
+                        <td data-bind="text: framesWon"></td>
+                        <td data-bind="text: framesLost"></td>
                         <td data-bind="text: bonus"></td>
                         <td data-bind="text: points"></td>
                     </tr>    
                 </tbody>
             </table>
-        </div>
-
-        <div class='liveExample'>   
-            <p>First name: <input data-bind='value: firstName' /></p> 
-            <p>Last name: <input data-bind='value: lastName' /></p> 
-            <h2>Hello, <span data-bind='text: fullName'> </span>!</h2>
-        </div>
-        <div class="stuff">
-            <h2>Your seat reservations (<span data-bind="text: seats().length"></span>)</h2>
-
-            <table>
-                <thead><tr>
-                    <th>Passenger name</th><th>Meal</th><th>Surcharge</th><th></th>
-                </tr></thead>
-                <tbody data-bind="foreach: seats">
-                    <tr>
-                        <td><input data-bind="value: name" /></td>
-                        <td><select data-bind="options: $root.availableMeals, value: meal, optionsText: 'mealName'"></select></td>
-                        <td data-bind="text: formattedPrice"></td>
-                        <td><a href="#" data-bind="click: $root.removeSeat">Remove</a></td>
-                    </tr>    
-                </tbody>
-            </table>
-
-            <button data-bind="click: addSeat, enable: seats().length < 5">Reserve another seat</button>
-
-            <h3 data-bind="visible: totalSurcharge() > 0">
-                Total surcharge: $<span data-bind="text: totalSurcharge().toFixed(2)"></span>
-            </h3>
         </div>
     </body>
 </html>

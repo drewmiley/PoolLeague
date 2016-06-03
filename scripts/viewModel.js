@@ -1,17 +1,5 @@
 define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, players, matches, fixtures, gameWeek) {
 
-	    // Class to represent a row in the seat reservations grid
-	function SeatReservation(name, initialMeal) {
-	    var self = this;
-	    self.name = name;
-	    self.meal = ko.observable(initialMeal);
-
-	    self.formattedPrice = ko.computed(function() {
-	        var price = self.meal().price;
-	        return price ? "$" + price.toFixed(2) : "None";        
-	    });    
-	}
-
 	// see this for table sorting
 	// http://jsfiddle.net/kohenkatz/RT7J4/
 
@@ -32,15 +20,15 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 		return completedFixtureScores;
 	}
 
-	function LeagueTableRow(name, played, won, drew, lost, pointsFor, pointsAgainst, bonus, points) {
+	function LeagueTableRow(name, played, won, drew, lost, framesWon, framesLost, bonus, points) {
 		var self = this;
 		self.name = name;
 		self.played = played;
 		self.won = won;
 		self.drew = drew;
 		self.lost = lost;
-		self.pointsFor = pointsFor;
-		self.pointsAgainst = pointsAgainst;
+		self.framesWon = framesWon;
+		self.framesLost = framesLost;
 		self.bonus = bonus;
 		self.points = points;
 	}
@@ -56,7 +44,7 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 		var lost = numericScores.filter(function(score) { return score < 3; }).length;
 
 		var pointsFor = 6 * numberOfWalkovers + numericScores.reduce(function(a, b) { return a + b; }, 0);
-		var pointsAgainst = 6 * played - numericScores.reduce(function(a, b) { return a + b; }, 0);
+		var pointsAgainst = 6 * played - 6 * numberOfWalkovers - numericScores.reduce(function(a, b) { return a + b; }, 0);
 
 		var bonus = numericScores.filter(function(score) { return score === 6; }).length;
 
@@ -80,58 +68,50 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 		return leagueTableRows;
 	}
 
-	function SorterModel(sortOptions, records) {
+	function Sort(name, value, sort) {
 		var self = this;
-		self.records = records;
-		self.sortOptions = ko.observableArray(sortOptions);
-		self.sortDirections = ko.observableArray([
-			{
-				Name: "Asc",
-				Value: "Asc",
-				Sort: false
-			},
-			{
-				Name: "Desc",
-				Value: "Desc",
-				Sort: true
-			}]);
-		self.currentSortOption = ko.observable(self.sortOptions()[0]);
-		self.currentSortDirection = ko.observable(self.sortDirections()[0]);
-		self.orderedRecords = ko.computed(function()
-		{
-			var records = self.records();
-			var sortOption = self.currentSortOption();
-			var sortDirection = self.currentSortDirection();
-			if (sortOption == null || sortDirection == null)
-			{
-				return records;
+		self.name = name;
+		self.value = value;
+		self.sort = sort;
+	}
+
+	function Sorter(sortOptions, tableRows) {
+		var self = this;
+		self.tableRows = tableRows;
+
+		self.options = ko.observableArray(sortOptions);
+		self.directions = ko.observableArray([new Sort("Desc", "Desc", true),
+			new Sort("Asc", "Asc", false)]);
+
+		self.currentOption = ko.observable(self.options()[0]);
+		self.currentDirection = ko.observable(self.directions()[0]);
+
+		self.orderedRows = ko.computed(function() {
+			var tableRows = self.tableRows();
+			var sortOption = self.currentOption();
+			var sortDirection = self.currentDirection();
+
+			if (sortOption == null || sortDirection == null) {
+				return tableRows;
 			}
 
-			var sortedRecords = records.slice(0, records.length);
-			SortArray(sortedRecords, sortDirection.Sort, sortOption.Sort);
-			return sortedRecords;
+			return SortArray(tableRows.slice(0, tableRows.length),
+				sortDirection.sort,
+				sortOption.sort);
 		});
 	}
 
-	function SortArray(array, direction, comparison)
-	{
-		if (array == null)
-		{
-			return [];
-		}
+	function SortArray(array, direction, comparison) {
 
-		for (var oIndex = 0; oIndex < array.length; oIndex++)
-		{
-			var oItem = array[oIndex];
-			for (var iIndex = oIndex + 1; iIndex < array.length; iIndex++)
-			{
-				var iItem = array[iIndex];
-				var isOrdered = comparison(oItem, iItem);
-				if (isOrdered == direction)
-				{
-					array[iIndex] = oItem;
-					array[oIndex] = iItem;
-					oItem = iItem;
+		for (var i = 0; i < array.length; i++) {
+			var original = array[i];
+			for (var j = i + 1; j < array.length; j++) {
+				var swap = array[j];
+
+				if (comparison(original, swap) === direction) {
+					array[j] = original;
+					array[i] = swap;
+					original = swap;
 				}
 			}
 		}
@@ -139,9 +119,7 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 		return array;
 	}
 
-
-	// Overall viewmodel for this screen, along with initial state
-	var ReservationsViewModel = function(first, last) {
+	var ViewModel = function(first, last) {
 	    var self = this;
 	    self.players = ko.observable(players);
 	    self.matches = ko.observable(matches);
@@ -151,51 +129,37 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 	    var leagueTableRows = formLeagueTable(players, matches, fixtures);
 	    self.leagueTableRows = ko.observableArray(leagueTableRows);
 
-		var sortOptions = [
-			{
-				Name: "Pts",
-				Value: "Pts",
-				Sort: function(left, right) { return left.points < right.points; }
-			}
+		var sortOptions = [new Sort("Pts", "Pts", function(left, right) {
+				return left.points < right.points;
+			}),
+			new Sort("Name", "Name", function(left, right) {
+				return left.name.toLowerCase() < right.name.toLowerCase();
+			}),
+			new Sort("Played", "Played", function(left, right) {
+				return left.played < right.played;
+			}),
+			new Sort("Bonus", "Bonus", function(left, right) {
+				return left.bonus < right.bonus;
+			}),
+			new Sort("Won", "Won", function(left, right) {
+				return left.won < right.won;
+			}),
+			new Sort("Drew", "Drew", function(left, right) {
+				return left.drew < right.drew;
+			}),
+			new Sort("Lost", "Lost", function(left, right) {
+				return left.lost < right.lost;
+			}),
+			new Sort("Frames Won", "Frames Won", function(left, right) {
+				return left.framesWon < right.framesWon;
+			}),
+			new Sort("Frames Lost", "Frames Lost", function(left, right) {
+				return left.framesLost < right.framesLost;
+			})
 		];
-		self.sorter = new SorterModel(sortOptions, self.leagueTableRows);
 
-	    this.firstName = ko.observable(first);
-        this.lastName = ko.observable(last);
-     
-        this.fullName = ko.computed(function() {
-            return this.firstName() + " " + this.lastName();
-        }, this);
-
-	    // Non-editable catalog data - would come from the server
-	    self.availableMeals = [
-	        { mealName: "Standard (sandwich)", price: 0 },
-	        { mealName: "Premium (lobster)", price: 34.95 },
-	        { mealName: "Ultimate (whole zebra)", price: 290 }
-	    ];    
-
-	    // Editable data
-	    self.seats = ko.observableArray([
-	        new SeatReservation("Steve", self.availableMeals[0]),
-	        new SeatReservation("Bert", self.availableMeals[0])
-	    ]);
-
-	    // Computed data
-	    self.totalSurcharge = ko.computed(function() {
-	       var total = 0;
-	       for (var i = 0; i < self.seats().length; i++)
-	           total += self.seats()[i].meal().price;
-	       return total;
-	    });    
-
-	    // Operations
-	    self.addSeat = function() {
-	        self.seats.push(new SeatReservation("", self.availableMeals[0]));
-	    }
-	    self.removeSeat = function(seat) { self.seats.remove(seat) }
-
-
+		self.leagueTableSorter = new Sorter(sortOptions, self.leagueTableRows);
 	}
      
-    return ReservationsViewModel;
+    return ViewModel;
 });
