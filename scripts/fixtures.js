@@ -1,11 +1,11 @@
 define([], function() {
 
-    function Fixture(id, gameWeek, homePlayerId, awayPlayerId) {
+    function Fixture(id, gameWeek, homePlayerID, awayPlayerID) {
         var self = this;
         self.id = id;
         self.gameWeek = gameWeek;
-        self.homePlayerId = homePlayerId;
-        self.awayPlayerId = awayPlayerId;
+        self.homePlayerID = homePlayerID;
+        self.awayPlayerID = awayPlayerID;
     }
 
     var fixtures = [new Fixture(1, 1, 1, 2),

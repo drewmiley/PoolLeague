@@ -3,6 +3,64 @@
         <script type="text/javascript" data-main="scripts/main.js" src="node_modules/requirejs/require.js"></script>
     </head>
     <body>
+        <div class="players">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: players">
+                    <tr>
+                        <td data-bind="text: id"></td>
+                        <td data-bind="text: name"></td>
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        <div class="matches">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fixture ID</th>
+                        <th>Home Score</th>
+                        <th>Away Score</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: matches">
+                    <tr>
+                        <td data-bind="text: fixtureID"></td>
+                        <td data-bind="text: homeScore"></td>
+                        <td data-bind="text: awayScore"></td>
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        <div class="fixtures">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Game Week</th>
+                        <th>Home Player ID</th>
+                        <th>Away Player ID</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: fixtures">
+                    <tr>
+                        <td data-bind="text: id"></td>
+                        <td data-bind="text: gameWeek"></td>
+                        <td data-bind="text: homePlayerID"></td>
+                        <td data-bind="text: awayPlayerID"></td>
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        <div class="gameWeek">
+            <h1 data-bind="text: gameWeek"></h1>
+        </div>
+
         <div class='liveExample'>   
             <p>First name: <input data-bind='value: firstName' /></p> 
             <p>Last name: <input data-bind='value: lastName' /></p> 

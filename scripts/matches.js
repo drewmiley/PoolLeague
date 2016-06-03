@@ -1,8 +1,8 @@
 define([], function() {
 
-    function Match(fixtureId, homeScore, awayScore) {
+    function Match(fixtureID, homeScore, awayScore) {
         var self = this;
-        self.fixtureId = fixtureId;
+        self.fixtureID = fixtureID;
         self.homeScore = homeScore;
         self.awayScore = awayScore;
     }
