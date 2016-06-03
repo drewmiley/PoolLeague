@@ -80,6 +80,66 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 		return leagueTableRows;
 	}
 
+	function SorterModel(sortOptions, records) {
+		var self = this;
+		self.records = records;
+		self.sortOptions = ko.observableArray(sortOptions);
+		self.sortDirections = ko.observableArray([
+			{
+				Name: "Asc",
+				Value: "Asc",
+				Sort: false
+			},
+			{
+				Name: "Desc",
+				Value: "Desc",
+				Sort: true
+			}]);
+		self.currentSortOption = ko.observable(self.sortOptions()[0]);
+		self.currentSortDirection = ko.observable(self.sortDirections()[0]);
+		self.orderedRecords = ko.computed(function()
+		{
+			var records = self.records();
+			var sortOption = self.currentSortOption();
+			var sortDirection = self.currentSortDirection();
+			if (sortOption == null || sortDirection == null)
+			{
+				return records;
+			}
+
+			var sortedRecords = records.slice(0, records.length);
+			SortArray(sortedRecords, sortDirection.Sort, sortOption.Sort);
+			return sortedRecords;
+		});
+	}
+
+	function SortArray(array, direction, comparison)
+	{
+		if (array == null)
+		{
+			return [];
+		}
+
+		for (var oIndex = 0; oIndex < array.length; oIndex++)
+		{
+			var oItem = array[oIndex];
+			for (var iIndex = oIndex + 1; iIndex < array.length; iIndex++)
+			{
+				var iItem = array[iIndex];
+				var isOrdered = comparison(oItem, iItem);
+				if (isOrdered == direction)
+				{
+					array[iIndex] = oItem;
+					array[oIndex] = iItem;
+					oItem = iItem;
+				}
+			}
+		}
+
+		return array;
+	}
+
+
 	// Overall viewmodel for this screen, along with initial state
 	var ReservationsViewModel = function(first, last) {
 	    var self = this;
@@ -89,7 +149,16 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 	    self.gameWeek = ko.observable(gameWeek);
 
 	    var leagueTableRows = formLeagueTable(players, matches, fixtures);
-	    self.leagueTableRows = ko.observable(leagueTableRows);
+	    self.leagueTableRows = ko.observableArray(leagueTableRows);
+
+		var sortOptions = [
+			{
+				Name: "Pts",
+				Value: "Pts",
+				Sort: function(left, right) { return left.points < right.points; }
+			}
+		];
+		self.sorter = new SorterModel(sortOptions, self.leagueTableRows);
 
 	    this.firstName = ko.observable(first);
         this.lastName = ko.observable(last);

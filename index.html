@@ -61,6 +61,10 @@
             <h1 data-bind="text: gameWeek"></h1>
         </div>
         <div class="leagueTable">
+            Sort:
+            <select data-bind="options: sorter.sortOptions, optionsText: 'Name', value: sorter.currentSortOption"></select>
+            Direction:
+            <select data-bind="options: sorter.sortDirections, optionsText: 'Name', value: sorter.currentSortDirection"></select>
             <table>
                 <thead>
                     <tr>
