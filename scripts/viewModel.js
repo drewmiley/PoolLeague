@@ -15,6 +15,23 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 	// see this for table sorting
 	// http://jsfiddle.net/kohenkatz/RT7J4/
 
+	function CompletedFixtureScore(playerID, score) {
+		var self = this;
+		self.playerID = playerID;
+		self.score = score;
+	}
+
+	function formCompletedFixtureScores(matches, fixtures) {
+		var completedFixtureScores = [];
+		for (var i = 0; i < matches.length; i++) {
+			var match = matches[i];
+			var correspondingFixture = fixtures.filter(function(fixture) { return fixture.id === match.fixtureID; })[0];
+			completedFixtureScores.push(new CompletedFixtureScore(correspondingFixture.homePlayerID, match.homeScore));
+			completedFixtureScores.push(new CompletedFixtureScore(correspondingFixture.awayPlayerID, match.awayScore));
+		}
+		return completedFixtureScores;
+	}
+
 	function LeagueTableRow(name, played, won, drew, lost, pointsFor, pointsAgainst, bonus, points) {
 		var self = this;
 		self.name = name;
@@ -28,26 +45,50 @@ define(['ko', 'players', 'matches', 'fixtures', 'gameWeek'], function(ko, player
 		self.points = points;
 	}
 
+	function calculateLeagueTableRow(name, scores) {
+		var played = scores.length;
+
+		var numericScores = scores.filter(function(score) { return !isNaN(parseFloat(score)); });
+		var numberOfWalkovers = played - numericScores.length;
+
+		var won = numberOfWalkovers + numericScores.filter(function(score) { return score > 3; }).length;
+		var drew = numericScores.filter(function(score) { return score === 3; }).length;
+		var lost = numericScores.filter(function(score) { return score < 3; }).length;
+
+		var pointsFor = 6 * numberOfWalkovers + numericScores.reduce(function(a, b) { return a + b; }, 0);
+		var pointsAgainst = 6 * played - numericScores.reduce(function(a, b) { return a + b; }, 0);
+
+		var bonus = numericScores.filter(function(score) { return score === 6; }).length;
+
+		var points = 3 * won + drew + pointsFor + bonus;
+
+		return new LeagueTableRow(name, played, won, drew, lost, pointsFor, pointsAgainst, bonus, points);
+	}
+
+	function formLeagueTableRow(player, completedFixtures) {
+		var playerScores = completedFixtures.filter(function(completedFixture) { return completedFixture.playerID === player.id; })
+			.map(function(completedFixture) { return completedFixture.score; });
+		return calculateLeagueTableRow(player.name, playerScores);
+	}
+
 	function formLeagueTable(players, matches, fixtures) {
-		return [new LeagueTableRow('Drew', 1, 1, 1, 1, 1, 1, 1, 1),
-			new LeagueTableRow('Drew', 1, 1, 1, 1, 1, 1, 1, 1),
-			new LeagueTableRow('Drew', 1, 1, 1, 1, 1, 1, 1, 1)];
+		var completedFixtures = formCompletedFixtureScores(matches, fixtures);
+		var leagueTableRows = [];
+		for (var i = 0; i < players.length; i++) {
+			leagueTableRows.push(formLeagueTableRow(players[i], completedFixtures));
+		}
+		return leagueTableRows;
 	}
 
 	// Overall viewmodel for this screen, along with initial state
 	var ReservationsViewModel = function(first, last) {
-		console.log(players);
-		console.log(matches);
-		console.log(fixtures);
-		console.log(gameWeek);
-
 	    var self = this;
 	    self.players = ko.observable(players);
 	    self.matches = ko.observable(matches);
 	    self.fixtures = ko.observable(fixtures);
 	    self.gameWeek = ko.observable(gameWeek);
 
-	    var leagueTableRows = formLeagueTable(self.players, self.matches, self.fixtures);
+	    var leagueTableRows = formLeagueTable(players, matches, fixtures);
 	    self.leagueTableRows = ko.observable(leagueTableRows);
 
 	    this.firstName = ko.observable(first);
