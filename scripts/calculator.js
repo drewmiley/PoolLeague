@@ -96,6 +96,7 @@ define(['data/players', 'data/matches', 'data/fixtures', 'data/gameWeek'],
 	}
 
 	return {
+		gameWeek: gameWeek,
 		formLeagueTable: formLeagueTable,
 		formLeagueFixtures: formLeagueFixtures
 	};

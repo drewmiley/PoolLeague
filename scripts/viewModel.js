@@ -47,6 +47,8 @@ define(['ko', 'util', 'calculator', 'data/sort'],
 	var ViewModel = function() {
 	    var self = this;
 
+	    self.gameWeek = ko.observable(calculator.gameWeek);
+
 	    var leagueTableRows = calculator.formLeagueTable();
 	    self.leagueTableRows = ko.observableArray(leagueTableRows);
 
