@@ -1,4 +1,5 @@
-define([], function() {
+define(['data/players', 'data/matches', 'data/fixtures', 'data/gameWeek'],
+	function(players, matches, fixtures, gameWeek) {
 
 	function CompletedFixtureScore(playerID, score) {
 		var self = this;
@@ -56,7 +57,7 @@ define([], function() {
 		return calculateLeagueTableRow(player.name, playerScores);
 	}
 
-	function formLeagueTable(players, matches, fixtures) {
+	function formLeagueTable() {
 		var completedFixtures = formCompletedFixtureScores(matches, fixtures);
 		var leagueTableRows = [];
 		for (var i = 0; i < players.length; i++) {
@@ -66,6 +67,10 @@ define([], function() {
 	}
 
 	return {
+		players: players,
+		matches: matches,
+		fixtures: fixtures,
+		gameWeek: gameWeek,
 		formLeagueTable: formLeagueTable
 	};
 })

@@ -1,5 +1,5 @@
-define(['ko', 'util', 'calculator', 'sort', 'players', 'matches', 'fixtures', 'gameWeek'],
-	function(ko, util, calculator, sort, players, matches, fixtures, gameWeek) {
+define(['ko', 'util', 'calculator', 'data/sort'],
+	function(ko, util, calculator, sort) {
 
 	function Sorter(tableRows) {
 		var self = this;
@@ -46,12 +46,12 @@ define(['ko', 'util', 'calculator', 'sort', 'players', 'matches', 'fixtures', 'g
 
 	var ViewModel = function() {
 	    var self = this;
-	    self.players = ko.observable(players);
-	    self.matches = ko.observable(matches);
-	    self.fixtures = ko.observable(fixtures);
-	    self.gameWeek = ko.observable(gameWeek);
+	    self.players = ko.observable(calculator.players);
+	    self.matches = ko.observable(calculator.matches);
+	    self.fixtures = ko.observable(calculator.fixtures);
+	    self.gameWeek = ko.observable(calculator.gameWeek);
 
-	    var leagueTableRows = calculator.formLeagueTable(players, matches, fixtures);
+	    var leagueTableRows = calculator.formLeagueTable();
 	    self.leagueTableRows = ko.observableArray(leagueTableRows);
 
 		self.leagueTableSorter = new Sorter(self.leagueTableRows);
