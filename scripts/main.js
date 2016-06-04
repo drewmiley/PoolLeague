@@ -11,6 +11,6 @@ define('$', ['jquery'], function ($) {
 
 require(['$', 'ko', 'viewModel'], function($, ko, viewModel) {
     $(document).ready(function() {
-        ko.applyBindings(new viewModel('hello', 'hello'));
+        ko.applyBindings(new viewModel());
     })
 });

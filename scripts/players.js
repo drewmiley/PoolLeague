@@ -6,7 +6,6 @@ define([], function() {
         self.name = name;
     }
 
-
     var players = [new Player(1, 'Drew'),
         new Player(2, 'Miley'),
         new Player(3, 'James'),
