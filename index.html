@@ -3,63 +3,6 @@
         <script type="text/javascript" data-main="scripts/main.js" src="node_modules/requirejs/require.js"></script>
     </head>
     <body>
-        <div class="players">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-                <tbody data-bind="foreach: players">
-                    <tr>
-                        <td data-bind="text: id"></td>
-                        <td data-bind="text: name"></td>
-                    </tr>    
-                </tbody>
-            </table>
-        </div>
-        <div class="matches">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Fixture ID</th>
-                        <th>Home Score</th>
-                        <th>Away Score</th>
-                    </tr>
-                </thead>
-                <tbody data-bind="foreach: matches">
-                    <tr>
-                        <td data-bind="text: fixtureID"></td>
-                        <td data-bind="text: homeScore"></td>
-                        <td data-bind="text: awayScore"></td>
-                    </tr>    
-                </tbody>
-            </table>
-        </div>
-        <div class="fixtures">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Game Week</th>
-                        <th>Home Player ID</th>
-                        <th>Away Player ID</th>
-                    </tr>
-                </thead>
-                <tbody data-bind="foreach: fixtures">
-                    <tr>
-                        <td data-bind="text: id"></td>
-                        <td data-bind="text: gameWeek"></td>
-                        <td data-bind="text: homePlayerID"></td>
-                        <td data-bind="text: awayPlayerID"></td>
-                    </tr>    
-                </tbody>
-            </table>
-        </div>
-        <div class="gameWeek">
-            <h1 data-bind="text: gameWeek"></h1>
-        </div>
         <div class="leagueTable">
             Sort By:
             <select data-bind="options: leagueTableSorter.options, optionsText: 'name', value: leagueTableSorter.currentOption"></select>
@@ -90,6 +33,30 @@
                         <td data-bind="text: framesLost"></td>
                         <td data-bind="text: bonus"></td>
                         <td data-bind="text: points"></td>
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        <div class="leagueFixtures">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>Home</th>
+                        <th></th>
+                        <th>V</th>
+                        <th></th>
+                        <th>Away</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: leagueFixtures">
+                    <tr>
+                        <td data-bind="text: gameWeek"></td>
+                        <td data-bind="text: homePlayer"></td>
+                        <td data-bind="text: homeScore"></td>
+                        <td>V</td>
+                        <td data-bind="text: awayPlayer"></td>
+                        <td data-bind="text: awayScore"></td>
                     </tr>    
                 </tbody>
             </table>
