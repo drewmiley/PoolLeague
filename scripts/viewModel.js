@@ -44,81 +44,81 @@ define(['ko', 'util', 'calculator', 'data/sort'],
 		});
 	}
 
-	// function FilterModel(filters, records) {
-	// 	var self = this;
-	// 	self.records = GetObservableArray(records);
-	// 	self.filters = ko.observableArray(filters);
-	// 	self.activeFilters = ko.computed(function() {
-	// 		var filters = self.filters();
-	// 		var activeFilters = [];
-	// 		for (var index = 0; index < filters.length; index++) {
-	// 			var filter = filters[index];
-	// 			if (filter.CurrentOption) {
-	// 				var filterOption = filter.CurrentOption();
-	// 				if (filterOption && filterOption.FilterValue != null) {
-	// 					var activeFilter = {
-	// 						Filter: filter,
-	// 						IsFiltered: function(filter, record) {
-	// 							var filterOption = filter.CurrentOption();
-	// 							if (!filterOption) {
-	// 								return;
-	// 							}
+	function FilterModel(filters, records) {
+		var self = this;
+		self.records = records;
+		self.filters = ko.observableArray(filters);
+		self.activeFilters = ko.computed(function() {
+			var filters = self.filters();
+			var activeFilters = [];
+			for (var index = 0; index < filters.length; index++) {
+				var filter = filters[index];
+				if (filter.CurrentOption) {
+					var filterOption = filter.CurrentOption();
+					if (filterOption && filterOption.FilterValue != null) {
+						var activeFilter = {
+							Filter: filter,
+							IsFiltered: function(filter, record) {
+								var filterOption = filter.CurrentOption();
+								if (!filterOption) {
+									return;
+								}
 
-	// 							var recordValue = filter.RecordValue(record);
-	// 							return recordValue != filterOption.FilterValue;NoMat
-	// 						}
-	// 					};
-	// 					activeFilters.push(activeFilter);
-	// 				}
-	// 			} else if (filter.Value) {
-	// 				var filterValue = filter.Value();
-	// 				if (filterValue && filterValue != "") {
-	// 					var activeFilter = {
-	// 						Filter: filter,
-	// 						IsFiltered: function(filter, record) {
-	// 							var filterValue = filter.Value();
-	// 							filterValue = filterValue.toUpperCase();
+								var recordValue = filter.RecordValue(record);
+								return recordValue != filterOption.FilterValue;NoMat
+							}
+						};
+						activeFilters.push(activeFilter);
+					}
+				} else if (filter.Value) {
+					var filterValue = filter.Value();
+					if (filterValue && filterValue != "") {
+						var activeFilter = {
+							Filter: filter,
+							IsFiltered: function(filter, record) {
+								var filterValue = filter.Value();
+								filterValue = filterValue.toUpperCase();
 								
-	// 							var recordValue = filter.RecordValue(record);
-	// 							recordValue = recordValue.toUpperCase();
-	// 							return recordValue.indexOf(filterValue) == -1;
-	// 						}
-	// 					};
-	// 					activeFilters.push(activeFilter);
-	// 				}
-	// 			}
-	// 		}
+								var recordValue = filter.RecordValue(record);
+								recordValue = recordValue.toUpperCase();
+								return recordValue.indexOf(filterValue) == -1;
+							}
+						};
+						activeFilters.push(activeFilter);
+					}
+				}
+			}
 
-	// 		return activeFilters;
-	// 	});
-	// 	self.filteredRecords = ko.computed(function() {
-	// 		var records = self.records();
-	// 		var filters = self.activeFilters();
-	// 		if (filters.length == 0) {
-	// 			return records;
-	// 		}
+			return activeFilters;
+		});
+		self.filteredRecords = ko.computed(function() {
+			var records = self.records();
+			var filters = self.activeFilters();
+			if (filters.length == 0) {
+				return records;
+			}
 			
-	// 		var filteredRecords = [];
-	// 		for (var rIndex = 0; rIndex < records.length; rIndex++) {
-	// 			var isIncluded = true;
-	// 			var record = records[rIndex];
-	// 			for (var fIndex = 0; fIndex < filters.length; fIndex++) {
-	// 				var filter = filters[fIndex];
-	// 				var isFiltered = filter.IsFiltered(filter.Filter, record);
-	// 				if (isFiltered) {
-	// 					isIncluded = false;
-	// 					break;
-	// 				}
-	// 			}
+			var filteredRecords = [];
+			for (var rIndex = 0; rIndex < records.length; rIndex++) {
+				var isIncluded = true;
+				var record = records[rIndex];
+				for (var fIndex = 0; fIndex < filters.length; fIndex++) {
+					var filter = filters[fIndex];
+					var isFiltered = filter.IsFiltered(filter.Filter, record);
+					if (isFiltered) {
+						isIncluded = false;
+						break;
+					}
+				}
 				
-	// 			if (isIncluded) {
-	// 				filteredRecords.push(record);
-	// 			}
-	// 		}
+				if (isIncluded) {
+					filteredRecords.push(record);
+				}
+			}
 
-	// 		return filteredRecords;
-	// 	});
-	// }
+			return filteredRecords;
+		});
+	}
 
 	var ViewModel = function() {
 	    var self = this;
@@ -131,28 +131,37 @@ define(['ko', 'util', 'calculator', 'data/sort'],
 		self.leagueTableSorter = new Sorter(self.leagueTableRows);
 
 		var leagueFixtures = calculator.formLeagueFixtures();
-		self.leagueFixtures = ko.observable(leagueFixtures);
+		self.leagueFixtures = ko.observableArray(leagueFixtures);
 
-		// var filters = [{
-		// 	Type: "text",
-		// 	Name: "Name",
-		// 	Value: ko.observable(""),
-		// 	RecordValue: function(record) { return record.name; }
-		// },
-		// {
-		// 	Type: "select",
-		// 	Name: "Status",
-		// 	Options: [
-		// 		GetOption("All", "All", null),
-		// 		GetOption("None", "None", "None"),
-		// 		GetOption("New", "New", "New"),
-		// 		GetOption("Recently Modified", "Recently Modified", "Recently Modified")
-		// 	],
-		// 	CurrentOption: ko.observable(),
-		// 	RecordValue: function(record) { return record.status; }
-		// }];
+		function GetOption(name, value, filterValue) {
+			var option = {
+				Name: name,
+				Value: value,
+				FilterValue: filterValue
+			};
+			return option;
+		}
 
-		// self.filter = new FilterModel(filters, self.leagueFixtures);
+		var filters = [{
+			Type: "text",
+			Name: "Home Player",
+			Value: ko.observable(""),
+			RecordValue: function(record) { return record.homePlayer; }
+		},
+		{
+			Type: "select",
+			Name: "Game Week",
+			Options: [
+				GetOption("All", "All", null),
+				GetOption("1", "1", 1),
+				GetOption("2", "2", 2),
+				GetOption("3", "3", 3)
+			],
+			CurrentOption: ko.observable(),
+			RecordValue: function(record) { return record.gameWeek; }
+		}];
+
+		self.leagueFixturesFilter = new FilterModel(filters, self.leagueFixtures);
 	}
      
     return ViewModel;

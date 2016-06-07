@@ -38,35 +38,36 @@
             </table>
         </div>
         <div class="leagueFixtures">
-<!--             <div data-bind="foreach: leagueFixturesFilter.filters">
-            <div>
-                <span data-bind="text: Name"></span>:<br />
+            <div data-bind="foreach: leagueFixturesFilter.filters">
+                <div data-bind="if: Type == 'text'">
+                    <span data-bind="text: Home Player"></span>:<br />
+                </div>
+                <div data-bind="if: Type == 'select'">
+                    <select data-bind="options: Options, optionsText: 'Game Week', value: CurrentOption"></select>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Week (<span data-bind="text: gameWeek"></span>)</th>
+                            <th>Home</th>
+                            <th></th>
+                            <th>V</th>
+                            <th></th>
+                            <th>Away</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: leagueFixturesFilter.filteredRecords">
+                        <tr>
+                            <td data-bind="text: gameWeek"></td>
+                            <td data-bind="text: homePlayer"></td>
+                            <td data-bind="text: homeScore"></td>
+                            <td>V</td>
+                            <td data-bind="text: awayPlayer"></td>
+                            <td data-bind="text: awayScore"></td>
+                        </tr>    
+                    </tbody>
+                </table>
             </div>
-            <div data-bind="if: Type == 'select'">
-                <select data-bind="options: Options, optionsText: 'Name', value: CurrentOption"></select>
-            </div> -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>Week (<span data-bind="text: gameWeek"></span>)</th>
-                        <th>Home</th>
-                        <th></th>
-                        <th>V</th>
-                        <th></th>
-                        <th>Away</th>
-                    </tr>
-                </thead>
-                <tbody data-bind="foreach: leagueFixtures">
-                    <tr>
-                        <td data-bind="text: gameWeek"></td>
-                        <td data-bind="text: homePlayer"></td>
-                        <td data-bind="text: homeScore"></td>
-                        <td>V</td>
-                        <td data-bind="text: awayPlayer"></td>
-                        <td data-bind="text: awayScore"></td>
-                    </tr>    
-                </tbody>
-            </table>
         </div>
     </body>
 </html>
