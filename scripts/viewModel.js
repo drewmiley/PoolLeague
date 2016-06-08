@@ -1,5 +1,5 @@
-define(['ko', 'util', 'calculator', 'data/sort'],
-	function(ko, util, calculator, sort) {
+define(['ko', 'util', 'calculator', 'data/filter', 'data/sort'],
+	function(ko, util, calculator, filter, sort) {
 
 	function Sorter(tableRows) {
 		var self = this;
@@ -44,10 +44,10 @@ define(['ko', 'util', 'calculator', 'data/sort'],
 		});
 	}
 
-	function FilterModel(filters, records) {
+	function Filter(records) {
 		var self = this;
 		self.records = records;
-		self.filters = ko.observableArray(filters);
+		self.filters = ko.observableArray(filter.options);
 		self.activeFilters = ko.computed(function() {
 			var filters = self.filters();
 			var activeFilters = [];
@@ -133,35 +133,7 @@ define(['ko', 'util', 'calculator', 'data/sort'],
 		var leagueFixtures = calculator.formLeagueFixtures();
 		self.leagueFixtures = ko.observableArray(leagueFixtures);
 
-		function GetOption(name, value, filterValue) {
-			var option = {
-				Name: name,
-				Value: value,
-				FilterValue: filterValue
-			};
-			return option;
-		}
-
-		var filters = [{
-			Type: "text",
-			Name: "Home Player",
-			Value: ko.observable(""),
-			RecordValue: function(record) { return record.homePlayer; }
-		},
-		{
-			Type: "select",
-			Name: "Game Week",
-			Options: [
-				GetOption("All", "All", null),
-				GetOption("1", "1", 1),
-				GetOption("2", "2", 2),
-				GetOption("3", "3", 3)
-			],
-			CurrentOption: ko.observable(),
-			RecordValue: function(record) { return record.gameWeek; }
-		}];
-
-		self.leagueFixturesFilter = new FilterModel(filters, self.leagueFixtures);
+		self.leagueFixturesFilter = new Filter(self.leagueFixtures);
 	}
      
     return ViewModel;
