@@ -32,6 +32,7 @@ define(['ko'], function(ko) {
 		new SelectOption("5", 5)];
 
 	var filters = [new TextFilter("Home Player", function(record) { return record.homePlayer; }),
+		new TextFilter("Away Player", function(record) { return record.awayPlayer; }),
 		new SelectFilter("Game Week", gameWeekOptions, function(record) { return record.gameWeek; })];
 
 	return {
