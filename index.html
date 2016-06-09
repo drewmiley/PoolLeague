@@ -22,7 +22,7 @@
                         <th>Pts</th>
                     </tr>
                 </thead>
-                <tbody data-bind="foreach: leagueTableSorter.orderedRows">
+                <tbody data-bind="foreach: leagueTableSorter.ordered">
                     <tr>
                         <td data-bind="text: name"></td>
                         <td data-bind="text: played"></td>
@@ -44,7 +44,7 @@
                     <select data-bind="options: Options, optionsText: 'Name', value: CurrentOption"></select>
                 </div>
                 <div data-bind="if: Type == 'text'">
-                    <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" />
+                    <input type="text" data-bind="value: CurrentText, valueUpdate: 'afterkeydown'" />
                 </div>
             </div>
             <table>
@@ -58,7 +58,7 @@
                         <th>Away</th>
                     </tr>
                 </thead>
-                <tbody data-bind="foreach: leagueFixturesFilter.filteredRecords">
+                <tbody data-bind="foreach: leagueFixturesFilter.filtered">
                     <tr>
                         <td data-bind="text: gameWeek"></td>
                         <td data-bind="text: homePlayer"></td>

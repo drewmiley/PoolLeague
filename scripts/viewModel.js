@@ -22,7 +22,7 @@ define(['ko', 'util', 'calculator', 'data/filter', 'data/sort'],
 			}
 		};
 
-		self.orderedRows = ko.computed(function() {
+		self.ordered = ko.computed(function() {
 			var tableRows = self.tableRows();
 			var sortOption = self.currentOption();
 			var sortDirection = self.currentDirection();
@@ -70,13 +70,13 @@ define(['ko', 'util', 'calculator', 'data/filter', 'data/sort'],
 						};
 						activeFilters.push(activeFilter);
 					}
-				} else if (filter.Value) {
-					var filterValue = filter.Value();
+				} else if (filter.CurrentText) {
+					var filterValue = filter.CurrentText();
 					if (filterValue && filterValue != "") {
 						var activeFilter = {
 							Filter: filter,
 							IsFiltered: function(filter, record) {
-								var filterValue = filter.Value();
+								var filterValue = filter.CurrentText();
 								filterValue = filterValue.toUpperCase();
 								
 								var recordValue = filter.RecordValue(record);
@@ -91,7 +91,7 @@ define(['ko', 'util', 'calculator', 'data/filter', 'data/sort'],
 
 			return activeFilters;
 		});
-		self.filteredRecords = ko.computed(function() {
+		self.filtered = ko.computed(function() {
 			var records = self.records();
 			var filters = self.activeFilters();
 			if (filters.length == 0) {

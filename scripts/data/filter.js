@@ -24,29 +24,29 @@ define(['ko'], function(ko) {
 	// 	self.filter = filter;
 	// }
 
-	var filters = [{
-		Type: "text",
-		Name: "Home Player",
-		Value: ko.observable(""),
-		RecordValue: function(record) { return record.homePlayer; }
-	},
-	{
-		Type: "select",
-		Name: "Game Week",
-		Options: [
-			GetOption("All", "All", null),
-			GetOption("1", "1", 1),
-			GetOption("2", "2", 2),
-			GetOption("3", "3", 3)
-		],
-		CurrentOption: ko.observable(),
-		RecordValue: function(record) { return record.gameWeek; }
-	}];
+	// var filters = [{
+	// 	Type: "text",
+	// 	Name: "Home Player",
+	// 	CurrentText: ko.observable(""),
+	// 	RecordValue: function(record) { return record.homePlayer; }
+	// },
+	// {
+	// 	Type: "select",
+	// 	Name: "Game Week",
+	// 	Options: [
+	// 		GetOption("All", "All", null),
+	// 		GetOption("1", "1", 1),
+	// 		GetOption("2", "2", 2),
+	// 		GetOption("3", "3", 3)
+	// 	],
+	// 	CurrentOption: ko.observable(),
+	// 	RecordValue: function(record) { return record.gameWeek; }
+	// }];
 
 	var filters = [{
 		Type: "text",
 		Name: "Home Player",
-		Value: ko.observable(""),
+		CurrentText: ko.observable(""),
 		RecordValue: function(record) { return record.homePlayer; }
 	},
 	{
