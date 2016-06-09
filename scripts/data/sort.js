@@ -1,13 +1,14 @@
 define([], function() {
 
-	function Sort(name, value, sort) {
+	function Sort(name, value, sort, isDefault) {
 		var self = this;
 		self.name = name;
 		self.value = value;
 		self.sort = sort;
+		self.isDefault = isDefault;
 	}
 
-	var sortDirections = [new Sort("Asc", "Asc", true),
+	var sortDirections = [new Sort("Asc", "Asc", true, true),
 		new Sort("Desc", "Desc", false)];
 	
 	var sortOptions = [new Sort("Pts", "Pts", function(left, right) {
@@ -21,7 +22,7 @@ define([], function() {
 			} else {
 				return 0;
 			}
-		}),
+		}, true),
 		new Sort("Played", "Played", function(left, right) {
 			return left.played - right.played;
 		}),

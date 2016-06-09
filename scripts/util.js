@@ -1,4 +1,40 @@
 define([], function() {
+
+	function IsTextFiltered(record, filter) {
+		var filterValue = filter.CurrentText();
+		filterValue = filterValue.toUpperCase();
+		
+		var recordValue = filter.Accessor(record);
+		recordValue = recordValue.toUpperCase();
+		return recordValue.indexOf(filterValue) == -1;
+	}
+
+	function IsOptionFiltered(record, filter) {
+		var filterOption = filter.CurrentOption();
+		if (!filterOption) {
+			return;
+		}
+
+		var recordValue = filter.Accessor(record);
+		return recordValue != filterOption.Value;
+	}
+
+
+	function IsFiltered(record, activeFilters) {
+		if (activeFilters.length == 0) {
+			return false;
+		}
+
+		for (var i = 0; i < activeFilters.length; i++) {
+			var filter = activeFilters[i];
+			if ((filter.Type === 'text' && IsTextFiltered(record, filter)) ||
+				(filter.Type === 'select' && IsOptionFiltered(record, filter))) {
+
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	function SortArray(array, direction, comparison, secondaryDirection, secondaryComparision) {
 
@@ -20,6 +56,7 @@ define([], function() {
 	}
 
 	return {
+		IsFiltered: IsFiltered,
 		SortArray: SortArray
 	};
 })

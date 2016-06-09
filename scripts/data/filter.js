@@ -1,66 +1,38 @@
 define(['ko'], function(ko) {
 
-	function GetOption(name, value, filterValue) {
-		var option = {
-			Name: name,
-			Value: value,
-			FilterValue: filterValue
-		};
-		return option;
+	function SelectOption(name, value, isDefault) {
+		var self = this;
+		self.Name = name;
+		self.Value = value;
+		self.IsDefault = isDefault;
 	}
 
-	// function TextFilter(type, name, value, filter) {
-	// 	var self = this;
-	// 	self.type = 'text';
-	// 	self.name = name;
-	// 	self.value = value;
-	// 	self.filter = filter;
-	// }
+	function TextFilter(name, accessor, initial) {
+		var self = this;
+		self.Type = 'text';
+		self.Name = name;
+		self.CurrentText = initial ? ko.observable(initial) : ko.observable('');
+		self.Accessor = accessor;
+	}
 
-	// function FilterOption(name, value, filter) {
-	// 	var self = this;
-	// 	self.name = name;
-	// 	self.value = value;
-	// 	self.filter = filter;
-	// }
+	function SelectFilter(name, options, accessor) {
+		var self = this;
+		self.Type = 'select';
+		self.Name = name;
+		self.Options = options;
+		self.CurrentOption = ko.observable(options.filter(function(option) { return option.IsDefault; })[0]);
+		self.Accessor = accessor;
+	}
 
-	// var filters = [{
-	// 	Type: "text",
-	// 	Name: "Home Player",
-	// 	CurrentText: ko.observable(""),
-	// 	RecordValue: function(record) { return record.homePlayer; }
-	// },
-	// {
-	// 	Type: "select",
-	// 	Name: "Game Week",
-	// 	Options: [
-	// 		GetOption("All", "All", null),
-	// 		GetOption("1", "1", 1),
-	// 		GetOption("2", "2", 2),
-	// 		GetOption("3", "3", 3)
-	// 	],
-	// 	CurrentOption: ko.observable(),
-	// 	RecordValue: function(record) { return record.gameWeek; }
-	// }];
+	var gameWeekOptions = [new SelectOption("All", null, true),
+		new SelectOption("1", 1),
+		new SelectOption("2", 2),
+		new SelectOption("3", 3),
+		new SelectOption("4", 4),
+		new SelectOption("5", 5)];
 
-	var filters = [{
-		Type: "text",
-		Name: "Home Player",
-		CurrentText: ko.observable(""),
-		RecordValue: function(record) { return record.homePlayer; }
-	},
-	{
-		Type: "select",
-		Name: "Game Week",
-		Options: [
-			GetOption("All", "All", null),
-			GetOption("1", "1", 1),
-			GetOption("2", "2", 2),
-			GetOption("3", "3", 3)
-		],
-		CurrentOption: ko.observable(),
-		RecordValue: function(record) { return record.gameWeek; }
-	}];
+	var filters = [new TextFilter("Home Player", function(record) { return record.homePlayer; }),
+		new SelectFilter("Game Week", gameWeekOptions, function(record) { return record.gameWeek; })];
 
 	return {
 		options: filters
