@@ -11,7 +11,7 @@ define([], function() {
 
     var matches = [new Match(1, 3, 3),
         new Match(4, 2, 4),
-        new Match(5, 'W', 0),
+        new Match(5, 0, 'W'),
         new Match(7, 0, 6),
         new Match(10, 5, 1)];
 

@@ -6,7 +6,7 @@ define([], function() {
 		
 		var recordValue = filter.Accessor(record);
 		recordValue = recordValue.toUpperCase();
-		return recordValue.indexOf(filterValue) == -1;
+		return recordValue.indexOf(filterValue) === -1;
 	}
 
 	function IsOptionFiltered(record, filter) {
@@ -16,7 +16,9 @@ define([], function() {
 		}
 
 		var recordValue = filter.Accessor(record);
-		return recordValue != filterOption.Value;
+		return filterOption.Value.constructor === Array ?
+			filterOption.Value.indexOf(recordValue) === -1:
+			recordValue != filterOption.Value;
 	}
 
 
