@@ -1,18 +1,18 @@
-define(['ko', 'util', 'calculator', 'data/filter', 'data/sort'],
-	function(ko, util, calculator, filter, sort) {
+define(['ko', 'modify/util', 'calculator', 'modify/fixtureFilter', 'modify/leagueSort'],
+	function(ko, util, calculator, fixtureFilter, leagueSort) {
 
 	function Sorter(records) {
 		var self = this;
 		self.records = records;
 
-		self.options = ko.observableArray(sort.options);
-		self.directions = ko.observableArray(sort.directions);
+		self.options = ko.observableArray(leagueSort.options);
+		self.directions = ko.observableArray(leagueSort.directions);
 
 		self.currentOption = ko.observable(self.options()[0]);
 		self.currentDirection = ko.observable(self.directions()[0]);
 
-		var previousDirection = sort.directions.filter(function(direction) { return direction.isDefault; })[0].sort;
-		var previousOption = sort.options.filter(function(option) { return option.isDefault; })[0].sort;
+		var previousDirection = leagueSort.directions.filter(function(direction) { return direction.isDefault; })[0].sort;
+		var previousOption = leagueSort.options.filter(function(option) { return option.isDefault; })[0].sort;
 
 		self.ordered = ko.computed(function() {
 			var records = self.records();
@@ -40,7 +40,7 @@ define(['ko', 'util', 'calculator', 'data/filter', 'data/sort'],
 		var self = this;
 		self.records = records;
 
-		self.filters = ko.observableArray(filter.options);
+		self.filters = ko.observableArray(fixtureFilter.options);
 
 		self.activeFilters = ko.computed(function() {
 			var filters = self.filters();
