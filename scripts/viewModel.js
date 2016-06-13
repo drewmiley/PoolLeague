@@ -61,17 +61,20 @@ define(['ko', 'modify/util', 'calculator', 'modify/fixtureFilter', 'modify/leagu
 	var ViewModel = function() {
 	    var self = this;
 
-	    self.gameWeek = ko.observable(calculator.gameWeek);
+	    self.gameWeek = calculator.gameWeek;
 
-	    var leagueTableRows = calculator.formLeagueTable();
-	    self.leagueTableRows = ko.observableArray(leagueTableRows);
+	    var leagueTable = calculator.leagueTable();
+	    self.leagueTable = ko.observableArray(leagueTable);
 
-		self.leagueTableSorter = new Sorter(self.leagueTableRows);
+		self.leagueTableSorter = new Sorter(self.leagueTable);
 
-		var leagueFixtures = calculator.formLeagueFixtures();
+		var leagueFixtures = calculator.leagueFixtures();
 		self.leagueFixtures = ko.observableArray(leagueFixtures);
 
 		self.leagueFixturesFilter = new Filter(self.leagueFixtures);
+
+		self.players = calculator.players;
+		self.fixtureGridFormatter = calculator.fixtureGridFormatter;
 	}
      
     return ViewModel;

@@ -1,6 +1,6 @@
 define([], function() {
 
-    var gameWeek = 1;
+    var gameWeek = 3;
 
     return gameWeek;
 })

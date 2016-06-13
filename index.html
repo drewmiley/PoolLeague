@@ -72,6 +72,28 @@
                 </tbody>
             </table>
         </div>
+        <div class="fixtureGrid">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <!-- ko foreach: players -->
+                        <th data-bind="text: name"></th>
+                        <!-- /ko -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ko foreach: players -->
+                    <tr>
+                        <th data-bind="text: name"></th>
+                        <!-- ko foreach: $parent.players -->
+                        <td><span data-bind="text: $root.fixtureGridFormatter($root.players[$index()].id, $root.players[$parentContext.$index()].id)"></span></td>
+                        <!-- /ko -->
+                    </tr>
+                    <!-- /ko -->
+                </tbody>
+            </table>
+        </div>
         <div class="gameWeek">
             Current Game Week: <span data-bind="text: gameWeek"></span>
         </div>

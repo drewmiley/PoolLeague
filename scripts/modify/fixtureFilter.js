@@ -1,4 +1,5 @@
-define(['ko'], function(ko) {
+define(['ko', 'data/fixtures', 'data/gameWeek'],
+	function(ko, fixtures, gameWeek) {
 
 	function SelectOption(name, value, isDefault) {
 		var self = this;
@@ -24,17 +25,25 @@ define(['ko'], function(ko) {
 		self.Accessor = accessor;
 	}
 
-	var gameWeekOptions = [new SelectOption("All", null, true),
-		new SelectOption("1", 1),
-		new SelectOption("2", 2),
-		new SelectOption("3", 3),
-		new SelectOption("4", 4),
-		new SelectOption("5", 5)];
+	var possibleGameWeeks = fixtures.map(function(fixture) { return fixture.gameWeek; })
+		.filter(function(elem, index, self) {
+    		return index === self.indexOf(elem);
+		}).sort(function(a, b){
+			return a - b;
+		});
+
+	var tenseGameWeekOptions = [new SelectOption("Current", gameWeek),
+		new SelectOption("Future", possibleGameWeeks.filter(function(value) { return value > gameWeek; })),
+		new SelectOption("Past", possibleGameWeeks.filter(function(value) { return value < gameWeek; }))];
+
+	var numberGameWeekOptions = possibleGameWeeks.map(function(value) { return new SelectOption(value, value); });
+
+	var gameWeekOptions = [new SelectOption("All", null, true)].concat(tenseGameWeekOptions, numberGameWeekOptions);
 
 	var gameStatusOptions = [new SelectOption("All", null, true),
 		new SelectOption("Played", 6),
 		new SelectOption("Walkover", ["W0", "0W"]),
-		new SelectOption("Unplayed", 0)]
+		new SelectOption("Unplayed", 0)];
 
 	var filters = [new TextFilter("Player", function(record) { return record.homePlayer + ' ' + record.awayPlayer; }),
 		new SelectFilter("Game Week", gameWeekOptions, function(record) { return record.gameWeek; }),

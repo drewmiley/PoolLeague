@@ -1,9 +1,11 @@
-define(['calculator/gameWeek', 'calculator/leagueFixtures', 'calculator/leagueTable'],
-	function(gameWeek, leagueFixtures, leagueTable) {
+define(['calculator/fixtureGridFormatter', 'calculator/gameWeek', 'calculator/leagueFixtures', 'calculator/leagueTable', 'calculator/players'],
+	function(fixtureGridFormatter, gameWeek, leagueFixtures, leagueTable, players) {
 
 	return {
+		fixtureGridFormatter: fixtureGridFormatter,
 		gameWeek: gameWeek,
-		formLeagueFixtures: leagueFixtures,
-		formLeagueTable: leagueTable
+		leagueFixtures: leagueFixtures,
+		leagueTable: leagueTable,
+		players: players
 	};
 })
