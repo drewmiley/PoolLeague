@@ -5,7 +5,16 @@
         <script type="text/javascript" data-main="scripts/main.js" src="node_modules/requirejs/require.js"></script>
     </head>
     <body>
-        <div class="leagueTable">
+        <div class="menu">
+            <ul data-bind="foreach: displayClasses">
+                <li data-bind="text: $data,
+                               click: function($data) { $parent.setDisplayedDiv($data) }"></li>
+            </ul>
+        </div>
+        <div class="gameWeek">
+            Current Game Week: <span data-bind="text: gameWeek"></span>
+        </div>
+        <div class="leagueTable" data-bind="visible: displayedClass() === 'leagueTable'">
             Sort By:
             <select data-bind="options: leagueTableSorter.options, optionsText: 'name', value: leagueTableSorter.currentOption"></select>
             Direction:
@@ -39,7 +48,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="leagueFixtures">
+        <div class="leagueFixtures" data-bind="visible: displayedClass() === 'leagueFixtures'">
             <div data-bind="foreach: leagueFixturesFilter.filters">
                 <span data-bind="text: Name"></span>:<br />
                 <div data-bind="if: Type == 'select'">
@@ -72,7 +81,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="fixtureGrid">
+        <div class="fixtureGrid" data-bind="visible: displayedClass() === 'fixtureGrid'">
             <table>
                 <thead>
                     <tr>
@@ -93,9 +102,6 @@
                     <!-- /ko -->
                 </tbody>
             </table>
-        </div>
-        <div class="gameWeek">
-            Current Game Week: <span data-bind="text: gameWeek"></span>
         </div>
         <script src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

@@ -81,6 +81,14 @@ define(['ko', 'calculator', 'modify'],
 
 		self.players = calculator.players;
 		self.fixtureGridFormatter = modify.fixtureGridFormatter;
+
+		self.displayClasses = ['leagueTable', 'leagueFixtures', 'fixtureGrid'];
+
+		self.displayedClass = ko.observable(self.displayClasses[0]);
+
+		self.setDisplayedDiv = function(className) {
+			self.displayedClass(className);
+		}
 	}
      
     return ViewModel;
