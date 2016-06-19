@@ -87,7 +87,7 @@
                     <tr>
                         <th data-bind="text: name"></th>
                         <!-- ko foreach: $parent.players -->
-                        <td><span data-bind="text: $root.fixtureGridFormatter($root.players[$index()].id, $root.players[$parentContext.$index()].id)"></span></td>
+                        <td><span data-bind="text: $root.fixtureGridFormatter($root.players[$parentContext.$index()].id, $root.players[$index()].id)"></span></td>
                         <!-- /ko -->
                     </tr>
                     <!-- /ko -->
