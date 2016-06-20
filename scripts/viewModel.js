@@ -1,9 +1,13 @@
-define(['ko', 'modify/util', 'calculator', 'modify/fixtureFilter', 'modify/leagueSort'],
-	function(ko, util, calculator, fixtureFilter, leagueSort) {
+define(['ko', 'calculator', 'modify'],
+	function(ko, calculator, modify) {
+
+	var util = modify.util;
 
 	function Sorter(records) {
 		var self = this;
 		self.records = records;
+
+		var leagueSort = modify.leagueSort;
 
 		self.options = ko.observableArray(leagueSort.options);
 		self.directions = ko.observableArray(leagueSort.directions);
@@ -40,6 +44,8 @@ define(['ko', 'modify/util', 'calculator', 'modify/fixtureFilter', 'modify/leagu
 		var self = this;
 		self.records = records;
 
+		var fixtureFilter = modify.fixtureFilter;
+
 		self.filters = ko.observableArray(fixtureFilter.options);
 
 		self.activeFilters = ko.computed(function() {
@@ -74,7 +80,7 @@ define(['ko', 'modify/util', 'calculator', 'modify/fixtureFilter', 'modify/leagu
 		self.leagueFixturesFilter = new Filter(self.leagueFixtures);
 
 		self.players = calculator.players;
-		self.fixtureGridFormatter = calculator.fixtureGridFormatter;
+		self.fixtureGridFormatter = modify.fixtureGridFormatter;
 	}
      
     return ViewModel;
