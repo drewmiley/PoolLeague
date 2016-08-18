@@ -82,12 +82,25 @@ define(['ko', 'calculator', 'modify'],
 		self.players = calculator.players;
 		self.fixtureGridFormatter = modify.fixtureGridFormatter;
 
-		self.displayClasses = ['leagueTable', 'leagueFixtures', 'fixtureGrid'];
+		self.displayClasses = [{
+			class: 'leagueTable',
+			text: 'League Table'
+		},{
+			class: 'leagueFixtures',
+			text: 'Fixture List'
+		},{
+			class: 'fixtureGrid',
+			text: 'Fixture Grid'
+		}];
 
 		self.displayedClass = ko.observable(self.displayClasses[0]);
 
-		self.setDisplayedDiv = function(className) {
-			self.displayedClass(className);
+		self.setDisplayedDiv = function(displayClass) {
+			self.displayedClass(displayClass);
+		}
+
+		self.activeClassIsDislayed = function(displayedClassName) {
+			return self.displayedClass().class === displayedClassName ? 'active' : '';
 		}
 	}
      
