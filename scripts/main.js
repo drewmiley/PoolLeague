@@ -1,7 +1,7 @@
 requirejs.config({
     paths: {
-        'jquery': '../jquery.min',
-        'ko': '../knockout-latest'
+        'jquery': '../lib/jquery.min',
+        'ko': '../lib/knockout-latest'
     }
 });
 
