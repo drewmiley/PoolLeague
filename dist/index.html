@@ -1,0 +1,168 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pool League</title>
+    <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="./bootstrap-theme.min.css">
+</head>
+
+<body style="background-color:#FCFBE3;">
+  <pool-league></pool-league>
+
+
+<!--     <div id="menu" class="col-sm-6">
+        <ul class="list-group" data-bind="foreach: displayClasses">
+            <li class="list-group-item" data-bind="text: $data.text,
+                           css: $parent.activeClassIsDislayed($data.class),
+                           click: function($data) { $parent.setDisplayedDiv($data) }"></li>
+        </ul>
+    </div> -->
+<!-- DONE -->
+
+
+<!--     <div id="gameWeek" class="col-md-10 col-sm-12">
+        <p class = "h3">Current Game Week: <span data-bind="text: gameWeek"></span></p>
+    </div> -->
+<!-- DONE -->
+
+
+<!--     <div class="col-md-10 col-sm-12">
+        <p class = "h3"><span data-bind="text: displayedClass().text"></span></p>
+    </div> -->
+<!-- DONE -->
+
+
+<!--     <div id="leagueTable" class="col-md-10 col-sm-12" data-bind="visible: displayedClass().class === 'leagueTable'"> -->
+
+
+<!--         <div class="panel panel-default">
+            <div class="panel-heading">Sort By:</div>
+            <select class="form-control" data-bind="options: leagueTableSorter.options, optionsText: 'name', value: leagueTableSorter.currentOption"></select>
+        </div> -->
+
+
+<!--         <div class="panel panel-default">
+            <div class="panel-heading">Direction:</div>
+            <select class="form-control" data-bind="options: leagueTableSorter.directions, optionsText: 'name', value: leagueTableSorter.currentDirection"></select>
+        </div> -->
+
+
+<!--         <table class="table table-striped">
+            <thead class="thead-default">
+                <tr>
+                    <th>Name</th>
+                    <th>P</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>F</th>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>Pts</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: leagueTableSorter.ordered">
+                <tr>
+                    <td data-bind="text: name"></td>
+                    <td data-bind="text: played"></td>
+                    <td data-bind="text: won"></td>
+                    <td data-bind="text: drew"></td>
+                    <td data-bind="text: lost"></td>
+                    <td data-bind="text: framesWon"></td>
+                    <td data-bind="text: framesLost"></td>
+                    <td data-bind="text: bonus"></td>
+                    <td data-bind="text: points"></td>
+                </tr>    
+            </tbody>
+        </table> -->
+
+
+<!--     </div> -->
+
+
+    <!-- <div id="leagueFixtures" class="col-md-10 col-sm-12" data-bind="visible: displayedClass().class === 'leagueFixtures'"> -->
+
+
+        <!-- <div data-bind="foreach: leagueFixturesFilter.filters"> -->
+
+
+            <!-- <div class="panel panel-default"> -->
+
+
+                <!-- <div class="panel-heading"><span data-bind="text: Name"></span>:</div> -->
+
+
+<!--                 <div data-bind="if: Type == 'select'">
+                    <select class="form-control" data-bind="options: Options, optionsText: 'Name', value: CurrentOption"></select>
+                </div> -->
+
+
+<!--                 <div data-bind="if: Type == 'text'">
+                    <input class="form-control" type="text" data-bind="value: CurrentText, valueUpdate: 'afterkeydown'" />
+                </div> -->
+
+
+<!--             </div> -->
+
+
+        <!-- </div> -->
+
+
+<!--         <table class="table table-striped">
+            <thead class="thead-default">
+                <tr>
+                    <th>Week</th>
+                    <th>Home</th>
+                    <th></th>
+                    <th>V</th>
+                    <th></th>
+                    <th>Away</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: leagueFixturesFilter.filtered">
+                <tr>
+                    <td data-bind="text: gameWeek"></td>
+                    <td data-bind="text: homePlayer"></td>
+                    <td data-bind="text: homeScore"></td>
+                    <td>V</td>
+                    <td data-bind="text: awayPlayer"></td>
+                    <td data-bind="text: awayScore"></td>
+                </tr>    
+            </tbody>
+        </table> -->
+
+
+<!--     </div> -->
+
+
+<!--     <div id="fixtureGrid" class="col-md-10 col-sm-12" data-bind="visible: displayedClass().class === 'fixtureGrid'"> -->
+
+
+<!--         <table class="table table-striped">
+            <thead class="thead-default">
+                <tr>
+                    <th></th> -->
+                    <!-- ko foreach: players -->
+<!--                     <th data-bind="text: name"></th> -->
+                    <!-- /ko -->
+<!--                 </tr>
+            </thead>
+            <tbody> -->
+                <!-- ko foreach: players -->
+<!--                 <tr>
+                    <th data-bind="text: name"></th> -->
+                    <!-- ko foreach: $parent.players -->
+<!--                     <td><span data-bind="text: $root.fixtureGridFormatter($root.players[$parentContext.$index()].id, $root.players[$index()].id)"></span></td> -->
+                    <!-- /ko -->
+<!--                 </tr> -->
+                <!-- /ko -->
+<!--             </tbody>
+        </table> -->
+
+
+<!--     </div> -->
+
+<script src="poolLeague.js" charset="utf-8"></script>
+</body>
+</html>
