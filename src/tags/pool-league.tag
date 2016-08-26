@@ -4,6 +4,8 @@ import '../tags/default/display-title.tag';
 import '../tags/default/game-week.tag';
 import '../tags/default/menu.tag';
 
+import '../tags/fixtureGrid/fixture-grid-div.tag';
+
 import '../tags/leagueFixtures/league-fixtures-div.tag';
 
 import '../tags/leagueTable/league-table-div.tag';
@@ -23,8 +25,13 @@ import '../tags/leagueTable/league-table-div.tag';
         setfixturefilter={setFixtureFilter}
         show={state.displayedClass.class === 'leagueFixtures'}>
     </league-fixtures-div>
+    <fixture-grid-div
+        store={this.opts.store}
+        show={state.displayedClass.class === 'fixtureGrid'}>
+    </fixture-grid-div>
 
     <script>
+
         let store = this.opts.store;
 
         this.state = store.getState();
@@ -49,6 +56,7 @@ import '../tags/leagueTable/league-table-div.tag';
         this.setFixtureFilter = (value, filter) => {
             store.dispatch(actionCreators.setFixtureFilter(value, filter));
         };
+
     </script>
 
 </pool-league>
