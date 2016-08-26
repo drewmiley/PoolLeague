@@ -1,5 +1,6 @@
-export const SET_STATE='poolLeague/SET_STATE';
+export const SET_STATE = 'poolLeague/SET_STATE';
 
-export const SET_DISPLAYED_DIV='poolLeague/SET_DISPLAYED_DIV';
+export const SET_DISPLAYED_DIV = 'poolLeague/SET_DISPLAYED_DIV';
 
-export const SET_LEAGUE_TABLE_SORT_DIRECTION='poolLeague/SET_LEAGUE_TABLE_SORT_DIRECTION';
+export const SET_LEAGUE_TABLE_SORT_DIRECTION = 'poolLeague/SET_LEAGUE_TABLE_SORT_DIRECTION';
+export const SET_LEAGUE_TABLE_SORT_OPTION = 'poolLeague/SET_LEAGUE_TABLE_SORT_OPTION';

@@ -13,3 +13,10 @@ export function setLeagueTableSortDirection(direction) {
         direction
     }
 }
+
+export function setLeagueTableSortOption(option) {
+    return {
+        type: actions.SET_LEAGUE_TABLE_SORT_OPTION,
+        option
+    }
+}

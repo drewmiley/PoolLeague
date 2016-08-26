@@ -3,7 +3,10 @@ import './league-table-option-sorter.tag';
 
 <league-table-sorter>
 
-    <league-table-option-sorter store={this.opts.store}></league-table-option-sorter>
+    <league-table-option-sorter
+        store={this.opts.store}
+        setleaguetablesortoption={opts.setleaguetablesortoption}>
+    </league-table-option-sorter>
     <league-table-direction-sorter
         store={this.opts.store}
         setleaguetablesortdirection={opts.setleaguetablesortdirection}>
@@ -22,6 +25,10 @@ import './league-table-option-sorter.tag';
 
         this.setleaguetablesortdirection = (direction) => {
             this.opts.setleaguetablesortdirection(direction);
+        };
+
+        this.setleaguetablesortoption = (option) => {
+            this.opts.setleaguetablesortoption(option);
         };
 
     </script>

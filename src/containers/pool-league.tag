@@ -12,6 +12,7 @@ import '../tags/menu.tag';
     <league-table-div
         store={this.opts.store}
         setleaguetablesortdirection={setLeagueTableSortDirection}
+        setleaguetablesortoption={setLeagueTableSortOption}
         show={state.displayedClass.class === 'leagueTable'}>
     </league-table-div>
 
@@ -27,6 +28,10 @@ import '../tags/menu.tag';
 
         this.setLeagueTableSortDirection = (direction) => {
             store.dispatch(actionCreators.setLeagueTableSortDirection(direction));
+        };
+
+        this.setLeagueTableSortOption = (option) => {
+            store.dispatch(actionCreators.setLeagueTableSortOption(option));
         };
 
         this.setDisplayedDiv = (displayClass) => {

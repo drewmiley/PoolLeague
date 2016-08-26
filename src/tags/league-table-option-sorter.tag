@@ -2,7 +2,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">Sort By:</div>
-        <select class="form-control" value={state.leagueTableSorter.currentOption.name}>
+        <select class="form-control" value={state.leagueTableSorter.currentOption.name} onchange={setLeagueTableSortOption}>
             <option each={state.leagueTableSorter.options}>{name}</option>
         </select>
     </div>
@@ -17,6 +17,10 @@
             this.state = store.getState();
             this.update();
         }.bind(this));
+
+        this.setLeagueTableSortOption = (e) => {
+            this.opts.setleaguetablesortoption(e.target.value);
+        };
 
     </script>
 

@@ -26,6 +26,16 @@ function setLeagueTableSortDirection(state, direction) {
     return state;
 }
 
+function setLeagueTableSortOption(state, option) {
+    if (!option) {
+        return state;
+    }
+    state.leagueTableSorter.currentOption = state.leagueTableSorter.options.filter((item) => {
+        return item.value === option;
+    })[0];
+    return state;
+}
+
 export default function(state = {}, action) {
     switch (action.type) {
         case actions.SET_STATE:
@@ -34,6 +44,8 @@ export default function(state = {}, action) {
             return setDisplayedDiv(state, action.displayClass);
         case actions.SET_LEAGUE_TABLE_SORT_DIRECTION:
             return setLeagueTableSortDirection(state, action.direction);
+        case actions.SET_LEAGUE_TABLE_SORT_OPTION:
+            return setLeagueTableSortOption(state, action.option);
         default:
             return state;
     }

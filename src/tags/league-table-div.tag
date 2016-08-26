@@ -6,7 +6,8 @@ import './league-table-sorter.tag';
     <div id="leagueTable" class="col-md-10 col-sm-12">
         <league-table-sorter
             store={this.opts.store}
-            setleaguetablesortdirection={opts.setleaguetablesortdirection}>
+            setleaguetablesortdirection={opts.setleaguetablesortdirection}
+            setleaguetablesortoption={opts.setleaguetablesortoption}>
         </league-table-sorter>
         <league-table store={this.opts.store}></league-table>
     </div>
@@ -24,6 +25,10 @@ import './league-table-sorter.tag';
 
         this.setleaguetablesortdirection = (direction) => {
             this.opts.setleaguetablesortdirection(direction);
+        };
+
+        this.setleaguetablesortoption = (option) => {
+            this.opts.setleaguetablesortoption(option);
         };
 
     </script>
