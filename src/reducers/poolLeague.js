@@ -36,6 +36,25 @@ function setLeagueTableSortOption(state, option) {
     return state;
 }
 
+function setFixtureFilter(state, value, filter) {
+    if (!filter || value === null || value === undefined) {
+        return state;
+    }
+    if (filter.Type === 'select') {
+        const selectFilter = state.leagueFixturesFilter.filters.filter((item) => {
+            return item == filter;
+        })[0];
+        selectFilter.CurrentOption = selectFilter.Options.filter((item) => {
+            return item.Name == value;
+        })[0];
+    } else if (filter.Type === 'text') {
+        state.leagueFixturesFilter.filters.filter((item) => {
+            return item == filter;
+        })[0].CurrentText = value;
+    }
+    return state;
+}
+
 export default function(state = {}, action) {
     switch (action.type) {
         case actions.SET_STATE:
@@ -46,6 +65,8 @@ export default function(state = {}, action) {
             return setLeagueTableSortDirection(state, action.direction);
         case actions.SET_LEAGUE_TABLE_SORT_OPTION:
             return setLeagueTableSortOption(state, action.option);
+        case actions.SET_FIXTURE_FILTER:
+            return setFixtureFilter(state, action.value, action.filter);
         default:
             return state;
     }

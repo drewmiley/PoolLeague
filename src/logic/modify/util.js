@@ -1,5 +1,5 @@
 function IsTextFiltered(record, filter) {
-	var filterValue = filter.CurrentText();
+	var filterValue = filter.CurrentText;
 	filterValue = filterValue.toUpperCase();
 	
 	var recordValue = filter.Accessor(record);
@@ -8,7 +8,7 @@ function IsTextFiltered(record, filter) {
 }
 
 function IsOptionFiltered(record, filter) {
-	var filterOption = filter.CurrentOption();
+	var filterOption = filter.CurrentOption;
 	if (!filterOption) {
 		return;
 	}

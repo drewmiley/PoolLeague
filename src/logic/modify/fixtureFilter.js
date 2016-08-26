@@ -45,7 +45,7 @@ var gameStatusOptions = [new SelectOption("All", null, true),
 	new SelectOption("Walkover", ["W0", "0W"]),
 	new SelectOption("Unplayed", 0)];
 
-var filters = [new TextFilter("Player", function(record) { return record.homePlayer + ' ' + record.awayPlayer; }),
+var filters = [new TextFilter("Player", function(record) { return record.homePlayer + ' ' + record.awayPlayer; }, ''),
 	new SelectFilter("Game Week", gameWeekOptions, function(record) { return record.gameWeek; }),
 	new SelectFilter("Game Status", gameStatusOptions, function(record) { return record.homeScore + record.awayScore; })];
 

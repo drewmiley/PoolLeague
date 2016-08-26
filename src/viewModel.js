@@ -18,7 +18,7 @@ function Sorter(records) {
 	var previousDirection = leagueSort.directions.filter(function(direction) { return direction.isDefault; })[0].sort;
 	var previousOption = leagueSort.options.filter(function(option) { return option.isDefault; })[0].sort;
 
-	self.ordered = (function() {
+	self.ordered = function() {
 		var records = self.records;
 		var sortOption = self.currentOption;
 		var sortDirection = self.currentDirection;
@@ -37,7 +37,7 @@ function Sorter(records) {
 		previousOption = sortOption.sort;
 
 		return sortedArray;
-	});
+	};
 }
 
 function Filter(records) {
@@ -48,20 +48,20 @@ function Filter(records) {
 
 	self.filters = fixtureFilter.options;
 
-	self.activeFilters = (function() {
-		var filters = self.filters();
+	self.activeFilters = function() {
+		var filters = self.filters;
 		var activeFilters = [];
 
-		return filters.filter(function(filter) { return  (filter.Type === 'select' && filter.CurrentOption.Value != null) ||
-				(filter.Type === 'text' && filter.CurrentText != "");});
-	});
+		return filters.filter(function(filter) { return (filter.Type === 'select' && filter.CurrentOption.Value != null) ||
+				(filter.Type === 'text' && filter.CurrentText);});
+	};
 
-	self.filtered = (function() {
+	self.filtered = function() {
 		var records = self.records;
-		var activeFilters = self.activeFilters;
+		var activeFilters = self.activeFilters();
 
 		return records.filter(function(record) { return !util.IsFiltered(record, activeFilters); });
-	});
+	};
 }
 
 export default function ViewModel() {

@@ -20,3 +20,11 @@ export function setLeagueTableSortOption(option) {
         option
     }
 }
+
+export function setFixtureFilter(value, filter) {
+    return {
+        type: actions.SET_FIXTURE_FILTER,
+        value,
+        filter
+    }
+}

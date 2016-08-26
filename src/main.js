@@ -5,7 +5,7 @@ import ViewModel from './viewModel';
 
 import * as actions from './constants/actions';
 
-import './containers/pool-league.tag';
+import './tags/pool-league.tag';
 
 import reducer from './reducers/poolLeague';
 

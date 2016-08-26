@@ -1,9 +1,12 @@
 import * as actionCreators from '../actions/poolLeague';
 
-import '../tags/display-title.tag';
-import '../tags/game-week.tag';
-import '../tags/league-table-div.tag';
-import '../tags/menu.tag';
+import '../tags/default/display-title.tag';
+import '../tags/default/game-week.tag';
+import '../tags/default/menu.tag';
+
+import '../tags/leagueFixtures/league-fixtures-div.tag';
+
+import '../tags/leagueTable/league-table-div.tag';
 
 <pool-league>
     <menu store={this.opts.store} setdisplayeddiv={setDisplayedDiv}></menu>
@@ -15,6 +18,11 @@ import '../tags/menu.tag';
         setleaguetablesortoption={setLeagueTableSortOption}
         show={state.displayedClass.class === 'leagueTable'}>
     </league-table-div>
+    <league-fixtures-div
+        store={this.opts.store}
+        setfixturefilter={setFixtureFilter}
+        show={state.displayedClass.class === 'leagueFixtures'}>
+    </league-fixtures-div>
 
     <script>
         let store = this.opts.store;
@@ -26,6 +34,10 @@ import '../tags/menu.tag';
             this.update();
         }.bind(this));
 
+        this.setDisplayedDiv = (displayClass) => {
+            store.dispatch(actionCreators.setDisplayedDiv(displayClass));
+        };
+
         this.setLeagueTableSortDirection = (direction) => {
             store.dispatch(actionCreators.setLeagueTableSortDirection(direction));
         };
@@ -34,8 +46,8 @@ import '../tags/menu.tag';
             store.dispatch(actionCreators.setLeagueTableSortOption(option));
         };
 
-        this.setDisplayedDiv = (displayClass) => {
-            store.dispatch(actionCreators.setDisplayedDiv(displayClass));
+        this.setFixtureFilter = (value, filter) => {
+            store.dispatch(actionCreators.setFixtureFilter(value, filter));
         };
     </script>
 
