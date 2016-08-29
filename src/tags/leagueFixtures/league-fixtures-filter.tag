@@ -20,10 +20,10 @@
 
         this.state = store.getState();
 
-        store.subscribe(function () {
+        store.subscribe(() => {
             this.state = store.getState();
             this.update();
-        }.bind(this));
+        });
 
         this.setFixtureFilter = (e) => {
             this.opts.setfixturefilter(e.target.value, e.item);

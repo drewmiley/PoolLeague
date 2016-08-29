@@ -13,10 +13,10 @@
 
         this.state = store.getState();
 
-        store.subscribe(function () {
+        store.subscribe(() => {
             this.state = store.getState();
             this.update();
-        }.bind(this));
+        });
 
         this.setLeagueTableSortDirection = (e) => {
             this.opts.setleaguetablesortdirection(e.target.value);
