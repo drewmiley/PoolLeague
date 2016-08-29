@@ -1,4 +1,4 @@
-dist/*
-!dist/index.html
+dist/poolLeague.js
+dist/poolLeague.js.map
 
 node_modules

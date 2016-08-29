@@ -11,8 +11,8 @@
                 <th>Away</th>
             </tr>
         </thead>
-        <tbody each={state.leagueFixturesFilter.filtered()}>
-            <tr>
+        <tbody>
+            <tr each={state.leagueFixturesFilter.filtered()}>
                 <td>{gameWeek}</td>
                 <td>{homePlayer}</td>
                 <td>{homeScore}</td>

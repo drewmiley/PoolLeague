@@ -14,9 +14,9 @@
                 <th>Pts</th>
             </tr>
         </thead>
-        <tbody each={state.leagueTableSorter.ordered()}>
-            <tr>
-                <td>{name}</td>
+        <tbody>
+            <tr each={state.leagueTableSorter.ordered()}>
+                <th>{name}</th>
                 <td>{played}</td>
                 <td>{won}</td>
                 <td>{drew}</td>
