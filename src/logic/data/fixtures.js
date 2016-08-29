@@ -6,7 +6,7 @@ function Fixture(id, gameWeek, homePlayerID, awayPlayerID) {
     self.awayPlayerID = awayPlayerID;
 }
 
-var fixtures = [new Fixture(1, 1, 1, 2),
+const fixtures = [new Fixture(1, 1, 1, 2),
     new Fixture(2, 1, 3, 4),
     new Fixture(3, 2, 5, 1),
     new Fixture(4, 2, 4, 2),

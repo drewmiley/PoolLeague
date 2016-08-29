@@ -1,18 +1,18 @@
 function Sort(name, value, sort, isDefault) {
-	var self = this;
+	let self = this;
 	self.name = name;
 	self.value = value;
 	self.sort = sort;
 	self.isDefault = isDefault;
 }
 
-var sortDirections = [new Sort('Asc', 'Asc', true, true),
+const sortDirections = [new Sort('Asc', 'Asc', true, true),
 	new Sort('Desc', 'Desc', false)];
 
-var sortOptions = [new Sort('Pts', 'Pts', function(left, right) {
+const sortOptions = [new Sort('Pts', 'Pts', (left, right) => {
 		return left.points - right.points;
 	}),
-	new Sort('Name', 'Name', function(left, right) {
+	new Sort('Name', 'Name', (left, right) => {
 		if (left.name.toLowerCase() < right.name.toLowerCase()) {
 			return 1;
 		} else if (left.name.toLowerCase() > right.name.toLowerCase()) {
@@ -21,25 +21,25 @@ var sortOptions = [new Sort('Pts', 'Pts', function(left, right) {
 			return 0;
 		}
 	}, true),
-	new Sort('Played', 'Played', function(left, right) {
+	new Sort('Played', 'Played', (left, right) => {
 		return left.played - right.played;
 	}),
-	new Sort('Bonus', 'Bonus', function(left, right) {
+	new Sort('Bonus', 'Bonus', (left, right) => {
 		return left.bonus - right.bonus;
 	}),
-	new Sort('Won', 'Won', function(left, right) {
+	new Sort('Won', 'Won', (left, right) => {
 		return left.won - right.won;
 	}),
-	new Sort('Drew', 'Drew', function(left, right) {
+	new Sort('Drew', 'Drew', (left, right) => {
 		return left.drew - right.drew;
 	}),
-	new Sort('Lost', 'Lost', function(left, right) {
+	new Sort('Lost', 'Lost', (left, right) => {
 		return left.lost - right.lost;
 	}),
-	new Sort('Frames Won', 'Frames Won', function(left, right) {
+	new Sort('Frames Won', 'Frames Won', (left, right) => {
 		return left.framesWon - right.framesWon;
 	}),
-	new Sort('Frames Lost', 'Frames Lost', function(left, right) {
+	new Sort('Frames Lost', 'Frames Lost', (left, right) => {
 		return left.framesLost - right.framesLost;
 	})
 ];

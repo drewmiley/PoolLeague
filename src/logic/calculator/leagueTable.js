@@ -3,16 +3,16 @@ import matches from '../data/matches';
 import players from '../data/players';
 
 function PlayerScore(playerID, score) {
-	var self = this;
+	let self = this;
 	self.playerID = playerID;
 	self.score = score;
 }
 
 function formAllPlayerScores(matches, fixtures) {
-	var allPlayerScores = [];
+	let allPlayerScores = [];
 	for (var i = 0; i < matches.length; i++) {
 		var match = matches[i];
-		var correspondingFixture = fixtures.filter(function(fixture) { return fixture.id === match.fixtureID; })[0];
+		var correspondingFixture = fixtures.filter((fixture) => { return fixture.id === match.fixtureID; })[0];
 		allPlayerScores.push(new PlayerScore(correspondingFixture.homePlayerID, match.homeScore));
 		allPlayerScores.push(new PlayerScore(correspondingFixture.awayPlayerID, match.awayScore));
 	}
@@ -20,7 +20,7 @@ function formAllPlayerScores(matches, fixtures) {
 }
 
 function LeagueTableRow(name, played, won, drew, lost, framesWon, framesLost, bonus, points) {
-	var self = this;
+	let self = this;
 	self.name = name;
 	self.played = played;
 	self.won = won;
@@ -33,34 +33,34 @@ function LeagueTableRow(name, played, won, drew, lost, framesWon, framesLost, bo
 }
 
 function calculateLeagueTableRow(name, scores) {
-	var played = scores.length;
+	const played = scores.length;
 
-	var numericScores = scores.filter(function(score) { return !isNaN(parseFloat(score)); });
-	var numberOfWalkovers = played - numericScores.length;
+	const numericScores = scores.filter((score) => { return !isNaN(parseFloat(score)); });
+	const numberOfWalkovers = played - numericScores.length;
 
-	var won = numberOfWalkovers + numericScores.filter(function(score) { return score > 3; }).length;
-	var drew = numericScores.filter(function(score) { return score === 3; }).length;
-	var lost = numericScores.filter(function(score) { return score < 3; }).length;
+	const won = numberOfWalkovers + numericScores.filter((score) => { return score > 3; }).length;
+	const drew = numericScores.filter((score) => { return score === 3; }).length;
+	const lost = numericScores.filter((score) => { return score < 3; }).length;
 
-	var pointsFor = 6 * numberOfWalkovers + numericScores.reduce(function(a, b) { return a + b; }, 0);
-	var pointsAgainst = 6 * played - 6 * numberOfWalkovers - numericScores.reduce(function(a, b) { return a + b; }, 0);
+	const pointsFor = 6 * numberOfWalkovers + numericScores.reduce((a, b) => { return a + b; }, 0);
+	const pointsAgainst = 6 * played - 6 * numberOfWalkovers - numericScores.reduce((a, b) => { return a + b; }, 0);
 
-	var bonus = numericScores.filter(function(score) { return score === 6; }).length;
+	const bonus = numericScores.filter((score) => { return score === 6; }).length;
 
-	var points = 3 * won + drew + pointsFor + bonus;
+	const points = 3 * won + drew + pointsFor + bonus;
 
 	return new LeagueTableRow(name, played, won, drew, lost, pointsFor, pointsAgainst, bonus, points);
 }
 
 function formLeagueTableRow(player, allPlayerScores) {
-	var playerScores = allPlayerScores.filter(function(playerScore) { return playerScore.playerID === player.id; })
-		.map(function(playerScore) { return playerScore.score; });
+	const playerScores = allPlayerScores.filter((playerScore) => { return playerScore.playerID === player.id; })
+		.map((playerScore) => { return playerScore.score; });
 	return calculateLeagueTableRow(player.name, playerScores);
 }
 
 export default function formLeagueTable() {
-	var allPlayerScores = formAllPlayerScores(matches, fixtures);
-	var leagueTableRows = [];
+	const allPlayerScores = formAllPlayerScores(matches, fixtures);
+	let leagueTableRows = [];
 	for (var i = 0; i < players.length; i++) {
 		leagueTableRows.push(formLeagueTableRow(players[i], allPlayerScores));
 	}

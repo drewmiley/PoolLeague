@@ -7,7 +7,7 @@ function Match(fixtureID, homeScore, awayScore) {
 // Scores can be one of 0, 1, 2, 3, 4, 5, 6 or W.
 // Games are best of 6.
 
-var matches = [new Match(1, 3, 3),
+const matches = [new Match(1, 3, 3),
     new Match(4, 2, 4),
     new Match(5, 0, 'W'),
     new Match(7, 0, 6),

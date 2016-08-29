@@ -1,19 +1,16 @@
 function IsTextFiltered(record, filter) {
-	var filterValue = filter.CurrentText;
-	filterValue = filterValue.toUpperCase();
-	
-	var recordValue = filter.Accessor(record);
-	recordValue = recordValue.toUpperCase();
+	const filterValue = filter.CurrentText.toUpperCase();	
+	const recordValue = filter.Accessor(record).toUpperCase();
 	return recordValue.indexOf(filterValue) === -1;
 }
 
 function IsOptionFiltered(record, filter) {
-	var filterOption = filter.CurrentOption;
+	const filterOption = filter.CurrentOption;
 	if (!filterOption) {
 		return;
 	}
 
-	var recordValue = filter.Accessor(record);
+	const recordValue = filter.Accessor(record);
 	return filterOption.Value.constructor === Array ?
 		filterOption.Value.indexOf(recordValue) === -1:
 		recordValue != filterOption.Value;
