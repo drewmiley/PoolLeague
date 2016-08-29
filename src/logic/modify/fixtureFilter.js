@@ -32,22 +32,22 @@ var possibleGameWeeks = fixtures.map(function(fixture) { return fixture.gameWeek
 		return a - b;
 	});
 
-var tenseGameWeekOptions = [new SelectOption("Current", gameWeek),
-	new SelectOption("Future", possibleGameWeeks.filter(function(value) { return value > gameWeek; })),
-	new SelectOption("Past", possibleGameWeeks.filter(function(value) { return value < gameWeek; }))];
+var tenseGameWeekOptions = [new SelectOption('Current', gameWeek),
+	new SelectOption('Future', possibleGameWeeks.filter(function(value) { return value > gameWeek; })),
+	new SelectOption('Past', possibleGameWeeks.filter(function(value) { return value < gameWeek; }))];
 
 var numberGameWeekOptions = possibleGameWeeks.map(function(value) { return new SelectOption(value, value); });
 
-var gameWeekOptions = [new SelectOption("All", null, true)].concat(tenseGameWeekOptions, numberGameWeekOptions);
+var gameWeekOptions = [new SelectOption('All', null, true)].concat(tenseGameWeekOptions, numberGameWeekOptions);
 
-var gameStatusOptions = [new SelectOption("All", null, true),
-	new SelectOption("Played", 6),
-	new SelectOption("Walkover", ["W0", "0W"]),
-	new SelectOption("Unplayed", 0)];
+var gameStatusOptions = [new SelectOption('All', null, true),
+	new SelectOption('Played', 6),
+	new SelectOption('Walkover', ['W0', '0W']),
+	new SelectOption('Unplayed', 0)];
 
-var filters = [new TextFilter("Player", function(record) { return record.homePlayer + ' ' + record.awayPlayer; }, ''),
-	new SelectFilter("Game Week", gameWeekOptions, function(record) { return record.gameWeek; }),
-	new SelectFilter("Game Status", gameStatusOptions, function(record) { return record.homeScore + record.awayScore; })];
+var filters = [new TextFilter('Player', function(record) { return record.homePlayer + ' ' + record.awayPlayer; }, ''),
+	new SelectFilter('Game Week', gameWeekOptions, function(record) { return record.gameWeek; }),
+	new SelectFilter('Game Status', gameStatusOptions, function(record) { return record.homeScore + record.awayScore; })];
 
 export default {
 	options: filters

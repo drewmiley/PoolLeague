@@ -1,8 +1,8 @@
 <menu>
 
-    <div id="menu" class="col-sm-6">
-        <ul class="list-group" each={state.displayClasses}>
-            <li class="list-group-item {active: class === state.displayedClass.class}" onclick={setDisplayedDiv}>
+    <div id='menu' class='col-sm-6'>
+        <ul class='list-group' each={state.displayClasses}>
+            <li class='list-group-item {active: class === state.displayedClass.class}' onclick={setDisplayedDiv}>
                 <label>{text}</label>
             </li>
         </ul>

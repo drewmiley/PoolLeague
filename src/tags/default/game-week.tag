@@ -1,7 +1,7 @@
 <game-week>
 
-    <div id="gameWeek" class="col-md-10 col-sm-12">
-        <p class = "h3">Current Game Week: {state.gameWeek}</p>
+    <div id='gameWeek' class='col-md-10 col-sm-12'>
+        <p class = 'h3'>Current Game Week: {state.gameWeek}</p>
     </div>
 
     <script>

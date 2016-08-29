@@ -3,7 +3,7 @@ import './league-table-sorter.tag';
 
 <league-table-div>
 
-    <div id="leagueTable" class="col-md-10 col-sm-12">
+    <div id='leagueTable' class='col-md-10 col-sm-12'>
         <league-table-sorter
             store={this.opts.store}
             setleaguetablesortdirection={opts.setleaguetablesortdirection}

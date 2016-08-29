@@ -1,8 +1,8 @@
 <league-table-direction-sorter>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">Direction:</div>
-        <select class="form-control" value={state.leagueTableSorter.currentDirection.name} onchange={setLeagueTableSortDirection}>
+    <div class='panel panel-default'>
+        <div class='panel-heading'>Direction:</div>
+        <select class='form-control' value={state.leagueTableSorter.currentDirection.name} onchange={setLeagueTableSortDirection}>
             <option each={state.leagueTableSorter.directions}>{name}</option>
         </select>
     </div>

@@ -1,7 +1,7 @@
 <league-table>
 
-    <table class="table table-striped">
-        <thead class="thead-default">
+    <table class='table table-striped'>
+        <thead class='thead-default'>
             <tr>
                 <th>Name</th>
                 <th>P</th>

@@ -1,7 +1,7 @@
 <league-fixtures>
 
-    <table class="table table-striped">
-        <thead class="thead-default">
+    <table class='table table-striped'>
+        <thead class='thead-default'>
             <tr>
                 <th>Week</th>
                 <th>Home</th>

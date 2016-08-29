@@ -1,8 +1,8 @@
 <fixture-grid-div>
 
     <div id='fixtureGrid' class='col-md-10 col-sm-12'>
-        <table class="table table-striped">
-            <thead class="thead-default">
+        <table class='table table-striped'>
+            <thead class='thead-default'>
                 <tr>
                     <th></th>
                     <th each={player, i in state.players}>{player.name}</th>

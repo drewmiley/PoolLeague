@@ -1,8 +1,8 @@
 <league-table-option-sorter>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">Sort By:</div>
-        <select class="form-control" value={state.leagueTableSorter.currentOption.name} onchange={setLeagueTableSortOption}>
+    <div class='panel panel-default'>
+        <div class='panel-heading'>Sort By:</div>
+        <select class='form-control' value={state.leagueTableSorter.currentOption.name} onchange={setLeagueTableSortOption}>
             <option each={state.leagueTableSorter.options}>{name}</option>
         </select>
     </div>
