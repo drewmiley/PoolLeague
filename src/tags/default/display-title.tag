@@ -1,7 +1,7 @@
 <display-title>
 
     <div class='col-md-10 col-sm-12'>
-        <p class = 'h3'>{state.displayedClass.text}</span></p>
+        <p class = 'h2'>{state.displayedClass.text}</span></p>
     </div>
 
     <script>

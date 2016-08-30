@@ -11,8 +11,8 @@ import '../tags/leagueFixtures/league-fixtures-div.tag';
 import '../tags/leagueTable/league-table-div.tag';
 
 <pool-league>
-    <menu store={this.opts.store} setdisplayeddiv={setDisplayedDiv}></menu>
     <game-week store={this.opts.store}></game-week>
+    <menu store={this.opts.store} setdisplayeddiv={setDisplayedDiv}></menu>
     <display-title store={this.opts.store}></display-title>
     <league-table-div
         store={this.opts.store}
