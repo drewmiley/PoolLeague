@@ -1,6 +1,6 @@
 <league-fixtures>
 
-    <table class='table table-striped'>
+    <table class='table'>
         <thead class='thead-default'>
             <tr>
                 <th>Week</th>
@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr each={state.leagueFixturesFilter.filtered()}>
+            <tr class='{current: gameWeek === state.gameWeek} {overdue: gameWeek < state.gameWeek && !homeScore && !awayScore}' each={state.leagueFixturesFilter.filtered()}>
                 <td>{gameWeek}</td>
                 <td>{homePlayer}</td>
                 <td>{homeScore}</td>
