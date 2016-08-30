@@ -8,11 +8,11 @@ function Sorter(records) {
 	self.directions = modify.leagueSort.directions;
 	self.options = modify.leagueSort.options;
 
-	self.currentDirection = self.directions[0];
-	self.currentOption = self.options[0];
+	self.currentDirection = self.directions.filter((direction) => { return direction.isPrimary; })[0];
+	self.currentOption = self.options.filter((option) => { return option.isPrimary; })[0];
 
-	let previousDirection = self.directions.filter((direction) => { return direction.isDefault; })[0].sort;
-	let previousOption = self.options.filter((option) => { return option.isDefault; })[0].sort;
+	self.previousDirection = self.directions.filter((direction) => { return direction.isPrimary; })[0];
+	self.previousOption = self.options.filter((option) => { return option.isSecondary; })[0];
 
 	self.ordered = () => {
 		if (self.currentOption == null || self.currentDirection == null) {
@@ -22,11 +22,11 @@ function Sorter(records) {
 		const sortedArray = modify.util.SortArray(self.records,
 			self.currentDirection.sort,
 			self.currentOption.sort,
-			previousDirection,
-			previousOption);
+			self.previousDirection.sort,
+			self.previousOption.sort);
 
-		previousDirection = self.currentDirection.sort;
-		previousOption = self.currentOption.sort;
+		self.previousDirection = self.currentDirection;
+		self.previousOption = self.currentOption;
 
 		return sortedArray;
 	};

@@ -18,6 +18,7 @@ import '../tags/leagueTable/league-table-div.tag';
         store={this.opts.store}
         setleaguetablesortdirection={setLeagueTableSortDirection}
         setleaguetablesortoption={setLeagueTableSortOption}
+        clearleaguesort={clearLeagueSort}
         show={state.displayedClass.class === 'leagueTable'}>
     </league-table-div>
     <league-fixtures-div
@@ -51,6 +52,10 @@ import '../tags/leagueTable/league-table-div.tag';
 
         this.setLeagueTableSortOption = (option) => {
             store.dispatch(actionCreators.setLeagueTableSortOption(option));
+        };
+
+        this.clearLeagueSort = () => {
+            store.dispatch(actionCreators.clearLeagueSort());
         };
 
         this.setFixtureFilter = (value, filter) => {

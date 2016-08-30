@@ -36,6 +36,16 @@ function setLeagueTableSortOption(state, option) {
     return state;
 }
 
+function clearLeagueSort(state) {
+    state.leagueTableSorter.currentDirection = state.leagueTableSorter.directions.filter((direction) => { return direction.isPrimary; })[0];
+    state.leagueTableSorter.currentOption = state.leagueTableSorter.options.filter((option) => { return option.isPrimary; })[0];
+
+    state.leagueTableSorter.previousDirection = state.leagueTableSorter.directions.filter((direction) => { return direction.isPrimary; })[0];
+    state.leagueTableSorter.previousOption = state.leagueTableSorter.options.filter((option) => { return option.isSecondary; })[0];
+
+    return state;
+}
+
 function setFixtureFilter(state, value, filter) {
     if (!filter || value === null || value === undefined) {
         return state;
@@ -65,6 +75,8 @@ export default function(state = {}, action) {
             return setLeagueTableSortDirection(state, action.direction);
         case actions.SET_LEAGUE_TABLE_SORT_OPTION:
             return setLeagueTableSortOption(state, action.option);
+        case actions.CLEAR_LEAGUE_SORT:
+            return clearLeagueSort(state);
         case actions.SET_FIXTURE_FILTER:
             return setFixtureFilter(state, action.value, action.filter);
         default:

@@ -10,6 +10,7 @@
                 <th>L</th>
                 <th>F</th>
                 <th>A</th>
+                <th>+/-</th>
                 <th>B</th>
                 <th>Pts</th>
             </tr>
@@ -23,6 +24,7 @@
                 <td>{lost}</td>
                 <td>{framesWon}</td>
                 <td>{framesLost}</td>
+                <td>{frameDifference}</td>
                 <td>{bonus}</td>
                 <td>{points}</td>
             </tr>    

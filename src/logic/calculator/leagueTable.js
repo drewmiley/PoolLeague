@@ -19,7 +19,7 @@ function formAllPlayerScores(matches, fixtures) {
 	return allPlayerScores;
 }
 
-function LeagueTableRow(name, played, won, drew, lost, framesWon, framesLost, bonus, points) {
+function LeagueTableRow(name, played, won, drew, lost, framesWon, framesLost, frameDifference, bonus, points) {
 	let self = this;
 	self.name = name;
 	self.played = played;
@@ -28,6 +28,7 @@ function LeagueTableRow(name, played, won, drew, lost, framesWon, framesLost, bo
 	self.lost = lost;
 	self.framesWon = framesWon;
 	self.framesLost = framesLost;
+	self.frameDifference = frameDifference;
 	self.bonus = bonus;
 	self.points = points;
 }
@@ -45,11 +46,13 @@ function calculateLeagueTableRow(name, scores) {
 	const pointsFor = 6 * numberOfWalkovers + numericScores.reduce((a, b) => { return a + b; }, 0);
 	const pointsAgainst = 6 * played - 6 * numberOfWalkovers - numericScores.reduce((a, b) => { return a + b; }, 0);
 
+	const pointsDifference = pointsFor - pointsAgainst;
+
 	const bonus = numericScores.filter((score) => { return score === 6; }).length;
 
 	const points = 3 * won + drew + pointsFor + bonus;
 
-	return new LeagueTableRow(name, played, won, drew, lost, pointsFor, pointsAgainst, bonus, points);
+	return new LeagueTableRow(name, played, won, drew, lost, pointsFor, pointsAgainst, pointsDifference, bonus, points);
 }
 
 function formLeagueTableRow(player, allPlayerScores) {

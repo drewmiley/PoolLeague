@@ -1,9 +1,10 @@
-function Sort(name, value, sort, isDefault) {
+function Sort(name, value, sort, isPrimary, isSecondary) {
 	let self = this;
 	self.name = name;
 	self.value = value;
 	self.sort = sort;
-	self.isDefault = isDefault;
+	self.isPrimary = isPrimary;
+	self.isSecondary = isSecondary;
 }
 
 const sortDirections = [new Sort('Asc', 'Asc', true, true),
@@ -11,7 +12,7 @@ const sortDirections = [new Sort('Asc', 'Asc', true, true),
 
 const sortOptions = [new Sort('Pts', 'Pts', (left, right) => {
 		return left.points - right.points;
-	}),
+	}, true),
 	new Sort('Name', 'Name', (left, right) => {
 		if (left.name.toLowerCase() < right.name.toLowerCase()) {
 			return 1;
@@ -20,7 +21,7 @@ const sortOptions = [new Sort('Pts', 'Pts', (left, right) => {
 		} else {
 			return 0;
 		}
-	}, true),
+	}),
 	new Sort('Played', 'Played', (left, right) => {
 		return left.played - right.played;
 	}),
@@ -41,7 +42,10 @@ const sortOptions = [new Sort('Pts', 'Pts', (left, right) => {
 	}),
 	new Sort('Frames Lost', 'Frames Lost', (left, right) => {
 		return left.framesLost - right.framesLost;
-	})
+	}),
+	new Sort('Frames Difference', 'Frames Difference', (left, right) => {
+		return left.frameDifference - right.frameDifference;
+	}, false, true)
 ];
 
 export default {

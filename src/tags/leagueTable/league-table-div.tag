@@ -18,6 +18,7 @@ import './league-table-sorter.tag';
             options={state.leagueTableSorter.directions}
             sorter={opts.setleaguetablesortdirection}>
         </league-table-sorter>
+        <button class='btn btn-default' type='button' onclick={clearleaguesort}>Clear Sort</button>
         <league-table store={this.opts.store}></league-table>
     </div>
 
@@ -38,6 +39,10 @@ import './league-table-sorter.tag';
 
         this.setleaguetablesortoption = (option) => {
             this.opts.setleaguetablesortoption(option);
+        };
+
+        this.clearleaguesort = () => {
+            this.opts.clearleaguesort();
         };
 
     </script>
