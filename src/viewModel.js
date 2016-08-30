@@ -62,6 +62,8 @@ export default function ViewModel() {
 	self.players = calculator.players;
 	self.fixtureGridFormatter = modify.fixtureGridFormatter;
 
+	self.finalBracket = calculator.finalBracket(self.leagueTableSorter.records);
+
 	self.displayClasses = [{
 		class: 'leagueTable',
 		text: 'League Table'
@@ -71,6 +73,9 @@ export default function ViewModel() {
 	},{
 		class: 'fixtureGrid',
 		text: 'Fixture Grid'
+	},{
+		class: 'finalBracket',
+		text: 'Final Bracket'
 	}];
 
 	self.displayedClass = self.displayClasses[0];

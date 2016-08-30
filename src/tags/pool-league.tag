@@ -4,6 +4,8 @@ import '../tags/default/display-title.tag';
 import '../tags/default/game-week.tag';
 import '../tags/default/menu.tag';
 
+import '../tags/finalBracket/final-bracket-div.tag';
+
 import '../tags/fixtureGrid/fixture-grid-div.tag';
 
 import '../tags/leagueFixtures/league-fixtures-div.tag';
@@ -29,6 +31,10 @@ import '../tags/leagueTable/league-table-div.tag';
         store={this.opts.store}
         show={state.displayedClass.class === 'fixtureGrid'}>
     </fixture-grid-div>
+    <final-bracket-div
+        store={this.opts.store}
+        show={state.displayedClass.class === 'finalBracket'}>
+    </final-bracket-div>
 
     <script>
 
