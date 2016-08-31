@@ -1,3 +1,4 @@
+import {NumberOfFramesGivenForWalkover, NumberOfFramesInMatch, TotalPoints} from '../data/config';
 import fixtures from '../data/fixtures';
 import matches from '../data/matches';
 import players from '../data/players';
@@ -37,20 +38,20 @@ function calculateLeagueTableRow(name, scores) {
 	const played = scores.length;
 
 	const numericScores = scores.filter((score) => { return !isNaN(parseFloat(score)); });
-	const numberOfWalkovers = played - numericScores.length;
+	const numberOfWalkoversGiven = played - numericScores.length;
 
-	const won = numberOfWalkovers + numericScores.filter((score) => { return score > 3; }).length;
-	const drew = numericScores.filter((score) => { return score === 3; }).length;
-	const lost = numericScores.filter((score) => { return score < 3; }).length;
+	const won = numberOfWalkoversGiven + numericScores.filter((score) => { return score > NumberOfFramesInMatch / 2; }).length;
+	const drew = numericScores.filter((score) => { return score === NumberOfFramesInMatch / 2; }).length;
+	const lost = numericScores.filter((score) => { return score < NumberOfFramesInMatch / 2; }).length;
 
-	const pointsFor = 6 * numberOfWalkovers + numericScores.reduce((a, b) => { return a + b; }, 0);
-	const pointsAgainst = 6 * played - 6 * numberOfWalkovers - numericScores.reduce((a, b) => { return a + b; }, 0);
+	const pointsFor = NumberOfFramesGivenForWalkover * numberOfWalkoversGiven + numericScores.reduce((a, b) => { return a + b; }, 0);
+	const pointsAgainst = NumberOfFramesInMatch * numericScores.length - numericScores.reduce((a, b) => { return a + b; }, 0);
 
 	const pointsDifference = pointsFor - pointsAgainst;
 
-	const bonus = numericScores.filter((score) => { return score === 6; }).length;
+	const bonus = numericScores.filter((score) => { return score === NumberOfFramesInMatch; }).length;
 
-	const points = 3 * won + drew + pointsFor + bonus;
+	const points = TotalPoints(played, won, drew, lost, pointsFor, pointsAgainst, bonus);
 
 	return new LeagueTableRow(name, played, won, drew, lost, pointsFor, pointsAgainst, pointsDifference, bonus, points);
 }

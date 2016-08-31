@@ -1,3 +1,4 @@
+import {NumberOfFramesInMatch} from '../data/config';
 import fixtures from '../data/fixtures';
 import gameWeek from '../data/gameWeek';
 
@@ -41,7 +42,7 @@ const numberGameWeekOptions = possibleGameWeeks.map((value) => { return new Sele
 const gameWeekOptions = [new SelectOption('All', null, true)].concat(tenseGameWeekOptions, numberGameWeekOptions);
 
 const gameStatusOptions = [new SelectOption('All', null, true),
-	new SelectOption('Played', 6),
+	new SelectOption('Played', NumberOfFramesInMatch),
 	new SelectOption('Walkover', ['W0', '0W']),
 	new SelectOption('Unplayed', 0)];
 
