@@ -1,12 +1,14 @@
 import util from '../modify/util';
 
 import fixtures from '../data/fixtures';
+import gameWeekDates from '../data/gameWeekDates';
 import matches from '../data/matches';
 import players from '../data/players';
 
-function LeagueFixture(gameWeek, homePlayer, homeScore, awayPlayer, awayScore) {
+function LeagueFixture(gameWeek, date, homePlayer, homeScore, awayPlayer, awayScore) {
 	let self = this;
 	self.gameWeek = gameWeek;
+	self.date = date;
 	self.homePlayer = homePlayer;
 	self.homeScore = homeScore;
 	self.awayPlayer = awayPlayer;
@@ -27,6 +29,7 @@ export default function formLeagueFixtures() {
 			}
 		}
 		leagueFixtures.push(new LeagueFixture(fixtures[i].gameWeek,
+			util.DateFormatter(fixtures[i].gameWeek - 1, gameWeekDates),
 			players.filter((player) => { return player.id === fixtures[i].homePlayerID; })[0].name, homeScore,
 			players.filter((player) => { return player.id === fixtures[i].awayPlayerID; })[0].name, awayScore));
 	}
