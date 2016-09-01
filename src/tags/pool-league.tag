@@ -1,7 +1,6 @@
 import * as actionCreators from '../actions/poolLeague';
 
 import '../tags/default/display-title.tag';
-import '../tags/default/game-week.tag';
 import '../tags/default/menu.tag';
 
 import '../tags/fixtureGrid/fixture-grid-div.tag';
@@ -11,7 +10,6 @@ import '../tags/leagueFixtures/league-fixtures-div.tag';
 import '../tags/leagueTable/league-table-div.tag';
 
 <pool-league>
-    <game-week store={this.opts.store}></game-week>
     <menu store={this.opts.store} setdisplayeddiv={setDisplayedDiv}></menu>
     <display-title store={this.opts.store}></display-title>
     <league-table-div

@@ -4,7 +4,6 @@
         <thead class='thead-default'>
             <tr>
                 <th>Date</th>
-                <th>Game Week</th>
                 <th>Home</th>
                 <th></th>
                 <th>V</th>
@@ -15,12 +14,11 @@
         <tbody>
             <tr class='{current: gameWeek === state.gameWeek} {overdue: gameWeek < state.gameWeek && !homeScore && !awayScore}' each={state.leagueFixturesFilter.filtered()}>
                 <td>{date}</td>
-                <td>{gameWeek}</td>
                 <td>{homePlayer}</td>
                 <td>{homeScore}</td>
                 <td>V</td>
-                <td>{awayPlayer}</td>
                 <td>{awayScore}</td>
+                <td>{awayPlayer}</td>
             </tr>    
         </tbody>
     </table>

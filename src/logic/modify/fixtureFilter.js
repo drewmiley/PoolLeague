@@ -2,6 +2,9 @@ import gameWeek from '../calculator/gameWeek';
 
 import {NumberOfFramesInMatch} from '../data/config';
 import fixtures from '../data/fixtures';
+import gameWeekDates from '../data/gameWeekDates';
+
+import util from './util';
 
 function SelectOption(name, value, isDefault) {
 	let self = this;
@@ -38,7 +41,7 @@ const tenseGameWeekOptions = [new SelectOption('Current', gameWeek),
 	new SelectOption('Future', possibleGameWeeks.filter((value) => { return value > gameWeek; })),
 	new SelectOption('Past', possibleGameWeeks.filter((value) => { return value < gameWeek; }))];
 
-const numberGameWeekOptions = possibleGameWeeks.map((value) => { return new SelectOption(value, value); });
+const numberGameWeekOptions = possibleGameWeeks.map((value) => { return new SelectOption(util.DateFormatter(value - 1, gameWeekDates), value); });
 
 const gameWeekOptions = [new SelectOption('All', null, true)].concat(tenseGameWeekOptions, numberGameWeekOptions);
 
@@ -48,8 +51,8 @@ const gameStatusOptions = [new SelectOption('All', null, true),
 	new SelectOption('Unplayed', 0)];
 
 const filters = [new TextFilter('Player', (record) => { return record.homePlayer + ' ' + record.awayPlayer; }, ''),
-	new SelectFilter('Game Week', gameWeekOptions, (record) => { return record.gameWeek; }),
-	new SelectFilter('Game Status', gameStatusOptions, (record) => { return record.homeScore + record.awayScore; })];
+	new SelectFilter('Date', gameWeekOptions, (record) => { return record.gameWeek; }),
+	new SelectFilter('Status', gameStatusOptions, (record) => { return record.homeScore + record.awayScore; })];
 
 export default {
 	options: filters
