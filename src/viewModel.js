@@ -1,12 +1,20 @@
-import calculator from './logic/calculator';
-import modify from './logic/modify';
+import gameWeek from './calculator/gameWeek';
+import leagueFixtures from './calculator/leagueFixtures';
+import leagueTable from './calculator/leagueTable';
+
+import players from './data/players';
+
+import fixtureFilter from './modify/fixtureFilter';
+import fixtureGridFormatter from './modify/fixtureGridFormatter';
+import leagueSort from './modify/leagueSort';
+import util from './modify/util';
 
 function Sorter(records) {
 	let self = this;
 	self.records = records;
 
-	self.directions = modify.leagueSort.directions;
-	self.options = modify.leagueSort.options;
+	self.directions = leagueSort.directions;
+	self.options = leagueSort.options;
 
 	self.currentDirection = self.directions.filter((direction) => { return direction.isPrimary; })[0];
 	self.currentOption = self.options.filter((option) => { return option.isPrimary; })[0];
@@ -19,7 +27,7 @@ function Sorter(records) {
 			return self.records;
 		}
 
-		const sortedArray = modify.util.SortArray(self.records,
+		const sortedArray = util.SortArray(self.records,
 			self.currentDirection.sort,
 			self.currentOption.sort,
 			self.previousDirection.sort,
@@ -36,7 +44,7 @@ function Filter(records) {
 	let self = this;
 	self.records = records;
 
-	self.filters = modify.fixtureFilter.options;
+	self.filters = fixtureFilter.options;
 
 	self.activeFilters = () => {
 		return self.filters.filter((filter) => { return (filter.Type === 'select' && filter.CurrentOption.Value != null) ||
@@ -44,23 +52,22 @@ function Filter(records) {
 	};
 
 	self.filtered = () => {
-		return self.records.filter((record) => { return !modify.util.IsFiltered(record, self.activeFilters()); });
+		return self.records.filter((record) => { return !util.IsFiltered(record, self.activeFilters()); });
 	};
 }
 
 export default function ViewModel() {
     let self = this;
 
-    self.gameWeek = calculator.gameWeek;
+	self.players = players;
 
-    self.leagueTable = calculator.leagueTable();
-	self.leagueTableSorter = new Sorter(self.leagueTable);
+    self.gameWeek = gameWeek;
 
-	self.leagueFixtures = calculator.leagueFixtures();
-	self.leagueFixturesFilter = new Filter(self.leagueFixtures);
+	self.leagueTableSorter = new Sorter(leagueTable);
 
-	self.players = calculator.players;
-	self.fixtureGridFormatter = modify.fixtureGridFormatter;
+	self.leagueFixturesFilter = new Filter(leagueFixtures);
+
+	self.fixtureGridFormatter = fixtureGridFormatter;
 
 	self.displayClasses = [{
 		class: 'leagueTable',

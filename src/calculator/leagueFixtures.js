@@ -1,9 +1,9 @@
-import util from '../modify/util';
-
 import fixtures from '../data/fixtures';
 import gameWeekDates from '../data/gameWeekDates';
 import matches from '../data/matches';
 import players from '../data/players';
+
+import util from '../modify/util';
 
 function LeagueFixture(gameWeek, date, homePlayer, homeScore, awayPlayer, awayScore) {
 	let self = this;
@@ -15,7 +15,7 @@ function LeagueFixture(gameWeek, date, homePlayer, homeScore, awayPlayer, awaySc
 	self.awayScore = awayScore;
 }
 
-export default function formLeagueFixtures() {
+const leagueFixtures = (() => {
 	let leagueFixtures = [];
 
 	for (var i = 0; i < fixtures.length; i++) {
@@ -34,4 +34,6 @@ export default function formLeagueFixtures() {
 			players.filter((player) => { return player.id === fixtures[i].awayPlayerID; })[0].name, awayScore));
 	}
 	return leagueFixtures;
-}
+})();
+
+export default leagueFixtures;

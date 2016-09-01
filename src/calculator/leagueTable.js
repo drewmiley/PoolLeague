@@ -62,11 +62,13 @@ function formLeagueTableRow(player, allPlayerScores) {
 	return calculateLeagueTableRow(player.name, playerScores);
 }
 
-export default function formLeagueTable() {
+const leagueTable = (() => {
 	const allPlayerScores = formAllPlayerScores(matches, fixtures);
 	let leagueTableRows = [];
 	for (var i = 0; i < players.length; i++) {
 		leagueTableRows.push(formLeagueTableRow(players[i], allPlayerScores));
 	}
 	return leagueTableRows;
-}
+})();
+
+export default leagueTable;
