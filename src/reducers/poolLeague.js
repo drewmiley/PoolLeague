@@ -37,10 +37,10 @@ function setLeagueTableSortOption(state, option) {
 }
 
 function clearLeagueSort(state) {
-    state.leagueTableSorter.currentDirection = state.leagueTableSorter.directions.filter((direction) => { return direction.isPrimary; })[0];
+    state.leagueTableSorter.currentDirection = state.leagueTableSorter.directions.filter((direction) => { return direction.isDefault; })[0];
     state.leagueTableSorter.currentOption = state.leagueTableSorter.options.filter((option) => { return option.isPrimary; })[0];
 
-    state.leagueTableSorter.previousDirection = state.leagueTableSorter.directions.filter((direction) => { return direction.isPrimary; })[0];
+    state.leagueTableSorter.previousDirection = state.leagueTableSorter.directions.filter((direction) => { return direction.isDefault; })[0];
     state.leagueTableSorter.previousOption = state.leagueTableSorter.options.filter((option) => { return option.isSecondary; })[0];
 
     return state;
@@ -50,27 +50,27 @@ function setFixtureFilter(state, value, filter) {
     if (!filter || value === null || value === undefined) {
         return state;
     }
-    if (filter.Type === 'select') {
+    if (filter.type === 'select') {
         const selectFilter = state.leagueFixturesFilter.filters.filter((item) => {
             return item == filter;
         })[0];
-        selectFilter.CurrentOption = selectFilter.Options.filter((item) => {
-            return item.Name == value;
+        selectFilter.currentOption = selectFilter.options.filter((item) => {
+            return item.name == value;
         })[0];
-    } else if (filter.Type === 'text') {
+    } else if (filter.type === 'text') {
         state.leagueFixturesFilter.filters.filter((item) => {
             return item == filter;
-        })[0].CurrentText = value;
+        })[0].currentText = value;
     }
     return state;
 }
 
 function clearFixtureFilter(state) {
     state.leagueFixturesFilter.filters.forEach((filter) => {
-        if (filter.Type === 'select') {
-            filter.CurrentOption = filter.Options.filter((option) => { return option.IsDefault; })[0];
-        } else if (filter.Type === 'text') {
-            filter.CurrentText = '';
+        if (filter.type === 'select') {
+            filter.currentOption = filter.options.filter((option) => { return option.isDefault; })[0];
+        } else if (filter.type === 'text') {
+            filter.currentText = '';
         }
     });
 

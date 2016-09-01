@@ -7,27 +7,30 @@ import gameWeekDates from '../data/gameWeekDates';
 import util from './util';
 
 function SelectOption(name, value, isDefault) {
-	let self = this;
-	self.Name = name;
-	self.Value = value;
-	self.IsDefault = isDefault;
+	return {
+		name,
+		value,
+		isDefault
+	}
 }
 
-function TextFilter(name, accessor, initial) {
-	let self = this;
-	self.Type = 'text';
-	self.Name = name;
-	self.CurrentText = initial;
-	self.Accessor = accessor;
+function TextFilter(name, initial, accessor) {
+	return {
+		type: 'text',
+		name,
+		currentText: initial,
+		accessor
+	}
 }
 
 function SelectFilter(name, options, accessor) {
-	let self = this;
-	self.Type = 'select';
-	self.Name = name;
-	self.Options = options;
-	self.CurrentOption = options.filter((option) => { return option.IsDefault; })[0];
-	self.Accessor = accessor;
+	return {
+		type: 'select',
+		name,
+		options,
+		currentOption: options.filter((option) => { return option.isDefault; })[0],
+		accessor
+	}
 }
 
 const possibleGameWeeks = fixtures.map((fixture) => { return fixture.gameWeek; })
@@ -50,7 +53,7 @@ const gameStatusOptions = [new SelectOption('All', null, true),
 	new SelectOption('Walkover', ['W0', '0W']),
 	new SelectOption('Unplayed', 0)];
 
-const filters = [new TextFilter('Player', (record) => { return record.homePlayer + ' ' + record.awayPlayer; }, ''),
+const filters = [new TextFilter('Player', '', (record) => { return record.homePlayer + ' ' + record.awayPlayer; }),
 	new SelectFilter('Date', gameWeekOptions, (record) => { return record.gameWeek; }),
 	new SelectFilter('Status', gameStatusOptions, (record) => { return record.homeScore + record.awayScore; })];
 

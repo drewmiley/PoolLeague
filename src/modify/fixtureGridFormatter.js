@@ -25,5 +25,5 @@ export default function fixtureGridFormatter(firstPlayerID, secondPlayerID) {
 		return match.length === 0 ? util.DateFormatter(awayFixture[0].gameWeek - 1, gameWeekDates) : match[0].awayScore + ' - ' + match[0].homeScore;
 	}
 
-	return '';
+	return 'Error in finding fixture';
 }

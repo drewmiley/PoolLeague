@@ -6,21 +6,21 @@ function DateFormatter(index, dates) {
 }
 
 function IsTextFiltered(record, filter) {
-	const filterValue = filter.CurrentText.toUpperCase();	
-	const recordValue = filter.Accessor(record).toUpperCase();
+	const filterValue = filter.currentText.toUpperCase();	
+	const recordValue = filter.accessor(record).toUpperCase();
 	return recordValue.indexOf(filterValue) === -1;
 }
 
 function IsOptionFiltered(record, filter) {
-	const filterOption = filter.CurrentOption;
+	const filterOption = filter.currentOption;
 	if (!filterOption) {
 		return;
 	}
 
-	const recordValue = filter.Accessor(record);
-	return filterOption.Value.constructor === Array ?
-		filterOption.Value.indexOf(recordValue) === -1:
-		recordValue != filterOption.Value;
+	const recordValue = filter.accessor(record);
+	return filterOption.value.constructor === Array ?
+		filterOption.value.indexOf(recordValue) === -1:
+		recordValue != filterOption.value;
 }
 
 
@@ -31,8 +31,8 @@ function IsFiltered(record, activeFilters) {
 
 	for (var i = 0; i < activeFilters.length; i++) {
 		var filter = activeFilters[i];
-		if ((filter.Type === 'text' && IsTextFiltered(record, filter)) ||
-			(filter.Type === 'select' && IsOptionFiltered(record, filter))) {
+		if ((filter.type === 'text' && IsTextFiltered(record, filter)) ||
+			(filter.type === 'select' && IsOptionFiltered(record, filter))) {
 
 			return true;
 		}

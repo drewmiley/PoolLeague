@@ -16,10 +16,10 @@ function Sorter(records) {
 	self.directions = leagueSort.directions;
 	self.options = leagueSort.options;
 
-	self.currentDirection = self.directions.filter((direction) => { return direction.isPrimary; })[0];
+	self.currentDirection = self.directions.filter((direction) => { return direction.isDefault; })[0];
 	self.currentOption = self.options.filter((option) => { return option.isPrimary; })[0];
 
-	self.previousDirection = self.directions.filter((direction) => { return direction.isPrimary; })[0];
+	self.previousDirection = self.directions.filter((direction) => { return direction.isDefault; })[0];
 	self.previousOption = self.options.filter((option) => { return option.isSecondary; })[0];
 
 	self.ordered = () => {
@@ -47,8 +47,8 @@ function Filter(records) {
 	self.filters = fixtureFilter.options;
 
 	self.activeFilters = () => {
-		return self.filters.filter((filter) => { return (filter.Type === 'select' && filter.CurrentOption.Value != null) ||
-				(filter.Type === 'text' && filter.CurrentText);});
+		return self.filters.filter((filter) => { return (filter.type === 'select' && filter.currentOption.value != null) ||
+				(filter.type === 'text' && filter.currentText);});
 	};
 
 	self.filtered = () => {

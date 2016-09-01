@@ -2,14 +2,14 @@
 
     <div each={state.leagueFixturesFilter.filters}>
         <div class='panel panel-default'>
-            <div class='panel-heading'>{Name}:</div>
-            <div if={Type === 'select'}>
-                <select class='form-control' value={CurrentOption.Name} onchange={setFixtureFilter}>
-                    <option each={Options}>{Name}</option>
+            <div class='panel-heading'>{name}:</div>
+            <div if={type === 'select'}>
+                <select class='form-control' value={currentOption.name} onchange={setFixtureFilter}>
+                    <option each={options}>{name}</option>
                 </select>
             </div>
-            <div if={Type === 'text'}>
-                <input class='form-control' value={CurrentText} onkeyup={setFixtureFilter} />
+            <div if={type === 'text'}>
+                <input class='form-control' value={currentText} onkeyup={setFixtureFilter} />
             </div>
         </div>
     </div>
