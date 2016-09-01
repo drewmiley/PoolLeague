@@ -9,67 +9,63 @@ import fixtureGridFormatter from './modify/fixtureGridFormatter';
 import leagueSort from './modify/leagueSort';
 import util from './modify/util';
 
-function Sorter(records) {
-	let self = this;
-	self.records = records;
+function Sorter(passedRecords) {
+	const records = passedRecords;
 
-	self.directions = leagueSort.directions;
-	self.options = leagueSort.options;
+	this.directions = leagueSort.directions;
+	this.options = leagueSort.options;
 
-	self.currentDirection = self.directions.filter((direction) => { return direction.isDefault; })[0];
-	self.currentOption = self.options.filter((option) => { return option.isPrimary; })[0];
+	this.currentDirection = this.directions.filter((direction) => { return direction.isDefault; })[0];
+	this.currentOption = this.options.filter((option) => { return option.isPrimary; })[0];
 
-	self.previousDirection = self.directions.filter((direction) => { return direction.isDefault; })[0];
-	self.previousOption = self.options.filter((option) => { return option.isSecondary; })[0];
+	let previousDirection = this.directions.filter((direction) => { return direction.isDefault; })[0];
+	let previousOption = this.options.filter((option) => { return option.isSecondary; })[0];
 
-	self.ordered = () => {
-		if (self.currentOption == null || self.currentDirection == null) {
-			return self.records;
+	this.ordered = () => {
+		if (this.currentOption == null || this.currentDirection == null) {
+			return records;
 		}
 
-		const sortedArray = util.SortArray(self.records,
-			self.currentDirection.sort,
-			self.currentOption.sort,
-			self.previousDirection.sort,
-			self.previousOption.sort);
+		const sortedArray = util.SortArray(records,
+			this.currentDirection.sort,
+			this.currentOption.sort,
+			previousDirection.sort,
+			previousOption.sort);
 
-		self.previousDirection = self.currentDirection;
-		self.previousOption = self.currentOption;
+		previousDirection = this.currentDirection;
+		previousOption = this.currentOption;
 
 		return sortedArray;
 	};
 }
 
-function Filter(records) {
-	let self = this;
-	self.records = records;
+function Filter(passedRecords) {
+	const records = passedRecords;
 
-	self.filters = fixtureFilter.options;
+	this.filters = fixtureFilter.options;
 
-	self.activeFilters = () => {
-		return self.filters.filter((filter) => { return (filter.type === 'select' && filter.currentOption.value != null) ||
+	const activeFilters = () => {
+		return this.filters.filter((filter) => { return (filter.type === 'select' && filter.currentOption.value != null) ||
 				(filter.type === 'text' && filter.currentText);});
 	};
 
-	self.filtered = () => {
-		return self.records.filter((record) => { return !util.IsFiltered(record, self.activeFilters()); });
+	this.filtered = () => {
+		return records.filter((record) => { return !util.IsFiltered(record, activeFilters()); });
 	};
 }
 
 export default function ViewModel() {
-    let self = this;
+	this.players = players;
 
-	self.players = players;
+    this.gameWeek = gameWeek;
 
-    self.gameWeek = gameWeek;
+	this.leagueTableSorter = new Sorter(leagueTable);
 
-	self.leagueTableSorter = new Sorter(leagueTable);
+	this.leagueFixturesFilter = new Filter(leagueFixtures);
 
-	self.leagueFixturesFilter = new Filter(leagueFixtures);
+	this.fixtureGridFormatter = fixtureGridFormatter;
 
-	self.fixtureGridFormatter = fixtureGridFormatter;
-
-	self.displayClasses = [{
+	this.displayClasses = [{
 		class: 'leagueTable',
 		text: 'League Table'
 	},{
@@ -80,5 +76,5 @@ export default function ViewModel() {
 		text: 'Fixture Grid'
 	}];
 
-	self.displayedClass = self.displayClasses[0];
+	this.displayedClass = this.displayClasses[0];
 }
