@@ -1,3 +1,5 @@
+import util from '../modify/util';
+
 import fixtures from '../data/fixtures';
 import matches from '../data/matches';
 import players from '../data/players';

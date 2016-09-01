@@ -1,3 +1,10 @@
+function DateFormatter(index, dates) {
+    const fullDate = dates[index];
+    const month = fullDate.getMonth() + 1;
+    const date = fullDate.getDate();
+    return date + '/' + month;
+}
+
 function IsTextFiltered(record, filter) {
 	const filterValue = filter.CurrentText.toUpperCase();	
 	const recordValue = filter.Accessor(record).toUpperCase();
@@ -53,6 +60,7 @@ function SortArray(array, direction, comparison, secondaryDirection, secondaryCo
 }
 
 export default {
-	IsFiltered: IsFiltered,
-	SortArray: SortArray
+	DateFormatter,
+	IsFiltered,
+	SortArray
 };

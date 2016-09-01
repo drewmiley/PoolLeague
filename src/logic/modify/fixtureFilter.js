@@ -1,6 +1,7 @@
+import gameWeek from '../calculator/gameWeek';
+
 import {NumberOfFramesInMatch} from '../data/config';
 import fixtures from '../data/fixtures';
-import gameWeek from '../data/gameWeek';
 
 function SelectOption(name, value, isDefault) {
 	let self = this;
