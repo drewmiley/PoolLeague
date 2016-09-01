@@ -8,6 +8,7 @@ import './league-fixtures-filter.tag';
             store={this.opts.store}
             setfixturefilter={opts.setfixturefilter}>
         </league-fixtures-filter>
+        <button class='btn btn-default' type='button' onclick={clearfixturefilter}>Clear Filters</button>
         <league-fixtures store={this.opts.store}></league-fixtures>
     </div>
 
@@ -21,6 +22,10 @@ import './league-fixtures-filter.tag';
             this.state = store.getState();
             this.update();
         });
+
+        this.clearfixturefilter = () => {
+            this.opts.clearfixturefilter();
+        };
 
     </script>
 

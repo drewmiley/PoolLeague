@@ -65,6 +65,18 @@ function setFixtureFilter(state, value, filter) {
     return state;
 }
 
+function clearFixtureFilter(state) {
+    state.leagueFixturesFilter.filters.forEach((filter) => {
+        if (filter.Type === 'select') {
+            filter.CurrentOption = filter.Options.filter((option) => { return option.IsDefault; })[0];
+        } else if (filter.Type === 'text') {
+            filter.CurrentText = '';
+        }
+    });
+
+    return state;
+}
+
 export default function(state = {}, action) {
     switch (action.type) {
         case actions.SET_STATE:
@@ -79,6 +91,8 @@ export default function(state = {}, action) {
             return clearLeagueSort(state);
         case actions.SET_FIXTURE_FILTER:
             return setFixtureFilter(state, action.value, action.filter);
+        case actions.CLEAR_FIXTURE_FILTER:
+            return clearFixtureFilter(state);
         default:
             return state;
     }

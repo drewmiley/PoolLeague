@@ -7,3 +7,4 @@ export const SET_LEAGUE_TABLE_SORT_OPTION = 'poolLeague/SET_LEAGUE_TABLE_SORT_OP
 export const CLEAR_LEAGUE_SORT = 'poolLeague/CLEAR_LEAGUE_SORT';
 
 export const SET_FIXTURE_FILTER = 'poolLeague/SET_FIXTURE_FILTER';
+export const CLEAR_FIXTURE_FILTER = 'poolLeague/CLEAR_FIXTURE_FILTER';

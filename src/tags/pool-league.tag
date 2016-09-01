@@ -22,6 +22,7 @@ import '../tags/leagueTable/league-table-div.tag';
     <league-fixtures-div
         store={this.opts.store}
         setfixturefilter={setFixtureFilter}
+        clearfixturefilter={clearFixtureFilter}
         show={state.displayedClass.class === 'leagueFixtures'}>
     </league-fixtures-div>
     <fixture-grid-div
@@ -58,6 +59,10 @@ import '../tags/leagueTable/league-table-div.tag';
 
         this.setFixtureFilter = (value, filter) => {
             store.dispatch(actionCreators.setFixtureFilter(value, filter));
+        };
+
+        this.clearFixtureFilter = () => {
+            store.dispatch(actionCreators.clearFixtureFilter());
         };
 
     </script>

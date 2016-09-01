@@ -34,3 +34,9 @@ export function setFixtureFilter(value, filter) {
         filter
     }
 }
+
+export function clearFixtureFilter() {
+    return {
+        type: actions.CLEAR_FIXTURE_FILTER
+    }
+}
