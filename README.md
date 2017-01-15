@@ -1,6 +1,6 @@
 # Pool League
 
-This is a Pool League app written using riot, redux, bootstrap, and webpack.
+This is a Pool League app written using riot, redux, bootstrap, and webpack. Here is the link to the associated blog post I wrote on it (http://blog.scottlogic.com/2016/09/02/reading-the-riot-act.html)
 
 ## Overview
 
